@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="Portfolio.css">
+  <link rel="shortcut icon" href="Favicon.png" type="image/x-icon">
+  <script src="https://kit.fontawesome.com/a9dba3c469.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/scrollreveal"></script>
+</head>
+
+<body>
+
+  <div id="intro-animation">
+    <h1 class="petifaye-logo">
+      <span>P</span><span>E</span><span>T</span><span>I</span><span>F</span><span>A</span><span>Y</span><span>E</span>
+    </h1>
+  </div>
+
+  <!-- Click Ripple Effect -->
+  <div class="click-ripple" id="ripple"></div>
+
+  <div id="header">
+    <div class="container">
+      <nav>
+        <img src="Logo.png" alt="Logo" class="logo">
+        <ul id="sidemenu">
+          <li><a href="#header">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+        </ul>
+        <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+      </nav>
+      <div class="header-text">
+        <p>Web Developer</p>
+        <h1>Hi, I'm <span>Prince</span><br> From Inazuma
+      </div>
+    </div>
+  </div>
+  <!-- about -->
+  <div id="about">
+    <div class="container">
+      <div class="row">
+        <div class="about-col-1">
+          <img src="User.jpeg" alt="User's Image">
+        </div>
+        <div class="about-col-2">
+          <h1 class="sub-title">Abolut Me</h1>
+          <p>✨ Professional:
+            “Bringing ideas to life through design & code.”
+            <br>
+            🎨 Creative:
+            “A pixel-perfect creator with a passion for stunning visuals.”
+            <br>
+            💻 Web Dev Focused:
+            “Crafting clean code & beautiful interfaces.”
+            <br>
+            🔥 Bold & Catchy:
+            “Designer. Developer. Dreamer.”
+            <br>
+            😊 Friendly & Approachable:
+            “Turning visions into websites & graphics you’ll love.”
+            <br>
+            🌟 Minimal & Modern:
+            “Designing. Developing. Delivering.”
+            <br>
+          </p>
+          <div class="tab-titles">
+            <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+            <p class="tab-links" onclick="opentab('experience')">Experience</p>
+            <p class="tab-links" onclick="opentab('education')">Education</p>
+          </div>
+          <div class="tab-contents active-tab" id="skills">
+            <ul>
+              <li><span>Wev Designer</span><br>Front-end Developer</li>
+              <li><span>UI/UX</span><br>Designing web interfaces</li>
+              <li><span>Graphics Designer</span><br>Thambnail maker</li>
+            </ul>
+          </div>
+          <div class="tab-contents" id="experience">
+            <ul>
+              <li><span>2025 - Current</span><br>learning Development</li>
+              <li><span>Current - Experience </span><br>0 Years in a Company</li>
+            </ul>
+          </div>
+          <div class="tab-contents" id="education">
+            <ul>
+              <li><span>2025 - School</span><br>S.V.M Inter colage</li>
+              <li><span>Current - Education</span><br>11th </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- services -->
+
+  <div id="services">
+    <div class="container">
+      <h1 class="sub-title">My Services</h1>
+      <div class="services-list">
+        <div>
+          <i class="fa-solid fa-web-awesome"></i>
+          <h2>Web Designer</h2>
+          <p>Hi, I’m Prince — a web designer who turns ideas into stunning, user-friendly websites. Whether it’s a
+            personal brand, a business, or a creative vision, I design clean, modern, and responsive websites that make
+            your audience say wow. Let’s create something beautiful together!</p>
+          <a href="#">Learn more</a>
+        </div>
+        <div>
+          <i class="fa-solid fa-code"></i>
+          <h2>Web Developer</h2>
+          <p>Hi, I’m Prince — a web developer who builds websites that don’t just look good, but work flawlessly. From
+            clean, responsive layouts to dynamic functionality, I write clean code that brings your ideas to life. Let’s
+            turn your vision into a fast, reliable, and user-friendly website!</p>
+          <a href="#">Learn more</a>
+        </div>
+        <div>
+          <i class="fa-solid fa-crop-simple"></i>
+          <h2>Graphics Designer</h2>
+          <p>Hi, I’m Prince — a graphics designer who believes great design tells a story. I craft bold, eye-catching
+            visuals that connect brands with people. From logos to social media to stunning layouts, I turn ideas into
+            designs that make you stand out. Let’s create something unforgettable together!</p>
+          <a href="#">Learn more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Portfolio -->
+  <div id="portfolio">
+    <div class="container">
+      <h1 class="sub-title">My Work</h1>
+      <div class="work-list">
+        <div class="work">
+          <img src="Image 1.jpg" alt="1">
+          <div class="layer">
+            <h3>Web Designer</h3>
+            <p>A modern, responsive website I designed and developed from scratch. Built with clean HTML, CSS, and
+              JavaScript for smooth user experience on all devices.</p>
+            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </div>
+        <div class="work">
+          <img src="image 2.jpg" alt="2">
+          <div class="layer">
+            <h3>Web Developer</h3>
+            <p>A modern, responsive website I designed and developed from scratch. Built with clean HTML, CSS, and
+              JavaScript for smooth user experience on all devices.</p>
+            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </div>
+        <div class="work">
+          <img src="image 3.jpg" alt="2">
+          <div class="layer">
+            <h3>Graphic Designer</h3>
+            <p>A modern, responsive website I designed and developed from scratch. Built with clean HTML, CSS, and
+              JavaScript for smooth user experience on all devices.</p>
+            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="btn">See more</a>
+    </div>
+
+    <!-- Contect -->
+    <div id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="contect-left">
+            <h1 class="sub-title">Contect Me</h1>
+            <p> <i class="fa-solid fa-envelope"></i> princeprajapti2589@gmail.com</p>
+            <p> <i class="fa-solid fa-phone"></i> 0123456789</p>
+            <div class="social-icons">
+              <a href="https://www.instagram.com/prince_web_dev/" target="_blank"><i
+                  class="fa-brands fa-instagram"></i></a>
+              <a href="https://github.com/PrincePrajapatiXi" target="_blank"><i class="fa-brands fa-github"></i></a>
+              <a href="https://discord.com/channels/711136332381945968/1383987831030153278" target="_blank"><i
+                  class="fa-brands fa-discord"></i></a>
+            </div>
+            <a href="CV.pdf" download class="btn btn2">Download CV</a>
+          </div>
+          <div class="contect-right">
+            <form id="contact-form">
+              <input type="text" name="Name" placeholder="Your Name" required />
+              <input type="email" name="Email" placeholder="Your Email" required />
+              <textarea name="Message" rows="5" placeholder="Your Message" required></textarea>
+              <button type="submit" class="btn btn2">Submit</button>
+            </form>
+            <span id="msg"></span>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>Copyright © Prince.</i></p>
+      </div>
+    </div>
+
+    <script src="Portfolio.js"></script>
+
+</body>
+
+</html>
