@@ -1,33 +1,46 @@
-import React from "react";
-import Navbar from "./componants/Navbar/Navbar";
-import About from "./componants/About/About";
-import Skills from "./componants/Skills/Skills";
-import Experience from "./componants/Experience/Experience";
-import Work from "./componants/Work/Work";
-import Education from "./componants/Education/Education";
-import Contact from "./componants/Contact/Contact";
-import Footer from "./componants/Footer/Footer";
-import BlurBlob from "./BlurBlob";
+import { useTheme } from './context/ThemeContext';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Projects from './components/Projects';
+import Skills from './components/Skills';
+import Timeline from './components/Timeline';
+import Testimonials from './components/Testimonials';
+import About from './components/About';
+import Certifications from './components/Certifications';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import { ScrollProgress, BackToTop, CursorGlow } from './components/UIEffects';
 
-const App = () => {
-  return (
-    <div className="bg-[#050414]">
-      <BlurBlob position={{ top: '35%', left: '20%' }} size={{ width: '30%', height: '40%' }} />
+function App() {
+    const { isDark } = useTheme();
 
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-      
-      <div className="relative pt-20">
-        <Navbar />
-        <About />
-        <Skills />
-        <Experience />
-        <Work />
-        <Education />
-        <Contact />
-        <Footer />
-      </div>
-    </div>
-  );
-};
+    return (
+        <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-dark-bg' : 'bg-light-bg'
+            }`}>
+            {/* Premium UI Effects */}
+            <ScrollProgress />
+            <CursorGlow />
+            <BackToTop />
+
+            {/* Navigation */}
+            <Navbar />
+
+            {/* Main Content */}
+            <main className="overflow-hidden">
+                <Hero />
+                <Projects />
+                <Skills />
+                <Timeline />
+                <Testimonials />
+                <About />
+                <Certifications />
+                <Contact />
+            </main>
+
+            {/* Footer */}
+            <Footer />
+        </div>
+    );
+}
 
 export default App;
