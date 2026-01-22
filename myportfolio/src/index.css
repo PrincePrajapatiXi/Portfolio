@@ -88,32 +88,94 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   ANIMATED BLOBS
+   SECTION STYLES - RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
+.section {
+    padding: 2.5rem 1rem;
+}
+
+@media (min-width: 640px) {
+    .section {
+        padding: 3.5rem 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .section {
+        padding: 4.5rem 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .section {
+        padding: 6rem 4rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ANIMATED BLOBS - MOBILE OPTIMIZED
    ═══════════════════════════════════════════════════════════════════════════ */
 .gradient-blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
+    filter: blur(60px);
+    opacity: 0.4;
     animation: blob 8s infinite ease-in-out;
     will-change: transform;
 }
 
+@media (min-width: 640px) {
+    .gradient-blob {
+        filter: blur(80px);
+        opacity: 0.5;
+    }
+}
+
 .gradient-blob-1 {
     background: linear-gradient(135deg, #818cf8, #6366f1);
-    width: min(400px, 80vw);
-    height: min(400px, 80vw);
+    width: min(200px, 50vw);
+    height: min(200px, 50vw);
     top: 10%;
-    left: 10%;
+    left: 5%;
+}
+
+@media (min-width: 640px) {
+    .gradient-blob-1 {
+        width: min(300px, 60vw);
+        height: min(300px, 60vw);
+        left: 10%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .gradient-blob-1 {
+        width: min(400px, 80vw);
+        height: min(400px, 80vw);
+    }
 }
 
 .gradient-blob-2 {
     background: linear-gradient(135deg, #22d3ee, #06b6d4);
-    width: min(300px, 60vw);
-    height: min(300px, 60vw);
+    width: min(150px, 40vw);
+    height: min(150px, 40vw);
     top: 40%;
-    right: 10%;
+    right: 5%;
     animation-delay: 2s;
+}
+
+@media (min-width: 640px) {
+    .gradient-blob-2 {
+        width: min(200px, 50vw);
+        height: min(200px, 50vw);
+        right: 10%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .gradient-blob-2 {
+        width: min(300px, 60vw);
+        height: min(300px, 60vw);
+    }
 }
 
 @keyframes blob {
@@ -133,25 +195,6 @@ body {
 
     75% {
         transform: translate(30px, 10px) scale(1.02);
-    }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   SECTION STYLES - RESPONSIVE
-   ═══════════════════════════════════════════════════════════════════════════ */
-.section {
-    padding: 4rem 1rem;
-}
-
-@media (min-width: 640px) {
-    .section {
-        padding: 5rem 2rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    .section {
-        padding: 6rem 4rem;
     }
 }
 

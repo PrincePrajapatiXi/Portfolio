@@ -174,62 +174,113 @@ export const education = [
 
 
 // ═══════════════════════════════════════════════════════════════════════════
-// �️ TIMELINE - Apni puri journey yahan add karo (Interactive Timeline ke liye)
+// 📅 MY JOURNEY TIMELINE - Edit your journey/milestones here
 // ═══════════════════════════════════════════════════════════════════════════
-// Types: 'education' | 'work' | 'project' | 'milestone'
-// Icons: 'education', 'work', 'project', 'milestone', 'code', 'rocket'
+//
+// HOW TO EDIT:
+// - Each item in the array below is one card in the timeline
+// - Edit the text inside the quotes to change what appears
+// - To ADD a new item: copy the template at the bottom and fill it
+// - To DELETE an item: remove the entire { } block for that item
+//
+// TYPES (changes the color):
+//   'education' = Purple (for school/college)
+//   'work'      = Cyan/Blue (for jobs/internships)  
+//   'project'   = Green (for projects you built)
+//   'milestone' = Orange (for achievements/important events)
+//
+// ICONS (changes the icon shown):
+//   'education' = Book icon
+//   'work'      = Briefcase icon
+//   'project'   = Lightning icon
+//   'milestone' = Star icon
+//   'code'      = Code icon
+//   'rocket'    = Lightning icon
+//
 export const timeline = [
+    // ──────────────────────────────────────────────────────────────────────
+    // ITEM 1: Class 12th
+    // ──────────────────────────────────────────────────────────────────────
     {
-        id: 1,
-        type: 'education',
-        title: 'Class 12th (Science)',
-        subtitle: 'SVM Inter College',
-        date: '2024 - Present',
+        id: 1,                                      // Unique number
+        type: 'education',                          // Color: Purple
+        title: 'Class 12th (Science)',              // Main heading
+        subtitle: 'SVM Inter College',              // Subheading (school name)
+        date: '2026 - Present',                     // When (shows on card)
         description: 'Currently studying in Class 12th with Science stream, preparing for higher education.',
-        icon: 'education',
+        icon: 'education',                          // Book icon
         expandedContent: 'Focusing on Physics, Chemistry, and Mathematics while continuing to develop programming skills.',
     },
+
+    // ──────────────────────────────────────────────────────────────────────
+    // ITEM 2: Started Web Development
+    // ──────────────────────────────────────────────────────────────────────
     {
         id: 2,
-        type: 'milestone',
+        type: 'milestone',                          // Color: Orange
         title: 'Started Learning Web Development',
         subtitle: 'Self-taught Journey',
-        date: '2023',
+        date: '2025',
         description: 'Began my journey into web development, learning HTML, CSS, and JavaScript.',
-        icon: 'code',
+        icon: 'code',                               // Code icon
         expandedContent: 'Started with basics and gradually moved to advanced concepts. Built small projects to practice.',
     },
+
+    // ──────────────────────────────────────────────────────────────────────
+    // ITEM 3: Catch Store Project
+    // ──────────────────────────────────────────────────────────────────────
     {
         id: 3,
-        type: 'project',
+        type: 'project',                            // Color: Green
         title: 'Catch Store - E-commerce',
         subtitle: 'Full Stack Project',
-        date: '2024',
+        date: '2025',
         description: 'Built a complete e-commerce store with React, Node.js, and MongoDB.',
-        icon: 'rocket',
+        icon: 'rocket',                             // Lightning icon
         expandedContent: 'Features include secure payments, admin panel, order tracking, and responsive design. My first major full-stack project.',
     },
+
+    // ──────────────────────────────────────────────────────────────────────
+    // ITEM 4: Army SMP-2 Project
+    // ──────────────────────────────────────────────────────────────────────
     {
         id: 4,
         type: 'project',
         title: 'Army SMP-2 Store',
         subtitle: 'Minecraft Server Store',
-        date: '2024',
+        date: '2026',
         description: 'Full-stack Minecraft server store with ranks, cosmetics, and payment integration.',
         icon: 'rocket',
         expandedContent: 'Complete e-commerce solution for a Minecraft server including admin dashboard, payment gateway, and order management.',
     },
+
+    // ──────────────────────────────────────────────────────────────────────
+    // ITEM 5: AI Tools Exploration
+    // ──────────────────────────────────────────────────────────────────────
     {
         id: 5,
         type: 'milestone',
         title: 'Exploring AI Tools',
         subtitle: 'Antigravity AI & More',
-        date: '2025',
+        date: '2026',
         description: 'Started using AI-powered development tools to enhance productivity.',
-        icon: 'milestone',
+        icon: 'milestone',                          // Star icon
         expandedContent: 'Learning to leverage AI for faster development while maintaining code quality and understanding.',
     },
-    // ← APNI JOURNEY YAHAN ADD KARO (same format mein)
+
+    // ══════════════════════════════════════════════════════════════════════
+    // TEMPLATE - Copy this to add more items:
+    // ══════════════════════════════════════════════════════════════════════
+    // {
+    //     id: 6,                                  // Change to next number
+    //     type: 'project',                        // 'education' | 'work' | 'project' | 'milestone'
+    //     title: 'Your Title Here',               // Main heading
+    //     subtitle: 'Subtitle Here',              // School/Company/Category
+    //     date: '2025',                           // Year or date range
+    //     description: 'Short description here.',
+    //     icon: 'rocket',                         // 'education' | 'work' | 'code' | 'rocket' | 'milestone'
+    //     expandedContent: 'Detailed description shown when user clicks on the card.',
+    // },
 ];
 
 

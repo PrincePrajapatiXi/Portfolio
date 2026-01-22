@@ -14,23 +14,23 @@ export default function Footer() {
     ];
 
     return (
-        <footer className={`py-12 px-4 border-t ${isDark ? 'border-dark-border' : 'border-light-border'
+        <footer className={`py-10 sm:py-12 px-4 sm:px-6 border-t ${isDark ? 'border-dark-border' : 'border-light-border'
             }`}>
             <div className="max-w-6xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
                     {/* Brand */}
-                    <div>
-                        <a href="#home" className="text-2xl font-bold gradient-text">
-                            {personalInfo.name.split(' ').map(n => n[0]).join('')}.
+                    <div className="flex flex-col items-center md:items-start">
+                        <a href="#home" className="text-xl sm:text-2xl font-bold gradient-text">
+                            Portfolio
                         </a>
-                        <p className={`mt-3 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                        <p className={`mt-3 text-xs sm:text-sm max-w-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                             {personalInfo.title} building digital experiences that matter.
                         </p>
                     </div>
 
                     {/* Quick Links */}
-                    <div>
-                        <h4 className={`font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                    <div className="flex flex-col items-center md:items-start">
+                        <h4 className={`font-semibold mb-3 sm:mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                             Quick Links
                         </h4>
                         <ul className="space-y-2">
@@ -49,24 +49,24 @@ export default function Footer() {
                     </div>
 
                     {/* Social Links */}
-                    <div>
-                        <h4 className={`font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                    <div className="flex flex-col items-center md:items-start">
+                        <h4 className={`font-semibold mb-3 sm:mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                             Connect
                         </h4>
-                        <div className="flex gap-4">
+                        <div className="flex gap-3 sm:gap-4">
                             {socialLinks.map((social) => (
                                 <a
                                     key={social.label}
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={`p-2 rounded-lg transition-all duration-300 hover:-translate-y-1 ${isDark
-                                            ? 'text-gray-400 hover:text-white hover:bg-dark-card'
-                                            : 'text-gray-600 hover:text-gray-900 hover:bg-light-card'
+                                    className={`p-2.5 sm:p-3 rounded-lg transition-all duration-300 hover:-translate-y-1 ${isDark
+                                        ? 'text-gray-400 hover:text-white hover:bg-dark-card'
+                                        : 'text-gray-600 hover:text-gray-900 hover:bg-light-card'
                                         }`}
                                     aria-label={social.label}
                                 >
-                                    <social.icon size={20} />
+                                    <social.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                                 </a>
                             ))}
                         </div>
@@ -74,13 +74,13 @@ export default function Footer() {
                 </div>
 
                 {/* Divider */}
-                <div className={`border-t pt-8 ${isDark ? 'border-dark-border' : 'border-light-border'}`}>
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                <div className={`border-t pt-6 sm:pt-8 ${isDark ? 'border-dark-border' : 'border-light-border'}`}>
+                    <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-3 sm:gap-4">
+                        <p className={`text-xs sm:text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                             © {currentYear} {personalInfo.name}. All rights reserved.
                         </p>
-                        <p className={`text-sm flex items-center gap-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Made with <FiHeart className="text-red-500" size={14} /> in India
+                        <p className={`text-xs sm:text-sm flex items-center gap-1.5 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Made with <FiHeart className="text-red-500 w-3.5 h-3.5 sm:w-4 sm:h-4" /> in India
                         </p>
                     </div>
                 </div>

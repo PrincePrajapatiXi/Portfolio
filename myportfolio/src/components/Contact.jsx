@@ -71,25 +71,25 @@ export default function Contact() {
     ];
 
     return (
-        <section id="contact" className="section relative">
-            <div className="max-w-6xl mx-auto">
+        <section id="contact" className="section relative py-10 sm:py-14 md:py-20">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6">
                 {/* Section Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="text-center mb-16"
+                    className="text-center mb-6 sm:mb-10 md:mb-14"
                 >
-                    <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                    <h2 className={`text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                         Get In <span className="gradient-text">Touch</span>
                     </h2>
-                    <p className={`text-lg max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <p className={`text-xs sm:text-sm md:text-base max-w-xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                         Have a project in mind? Let's work together to create something amazing.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
                     {/* Contact Info */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
@@ -97,34 +97,34 @@ export default function Contact() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5 }}
                     >
-                        <h3 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                        <h3 className={`text-base sm:text-lg md:text-2xl font-bold mb-3 sm:mb-4 md:mb-5 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                             Let's Talk
                         </h3>
-                        <p className={`mb-8 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                        <p className={`text-xs sm:text-sm md:text-base mb-4 sm:mb-5 md:mb-8 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                         </p>
 
                         {/* Contact Details */}
-                        <div className="space-y-4 mb-8">
+                        <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4 md:mb-6">
                             {contactInfo.map((item) => (
-                                <div key={item.label} className="flex items-center gap-4">
-                                    <div className={`p-3 rounded-xl ${isDark ? 'bg-dark-card' : 'bg-light-card'
+                                <div key={item.label} className="flex items-center gap-2 sm:gap-3">
+                                    <div className={`p-1.5 sm:p-2 rounded-md sm:rounded-lg ${isDark ? 'bg-dark-card' : 'bg-light-card'
                                         }`}>
-                                        <item.icon size={20} className={isDark ? 'text-primary' : 'text-primary-light'} />
+                                        <item.icon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${isDark ? 'text-primary' : 'text-primary-light'}`} />
                                     </div>
                                     <div>
-                                        <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                        <p className={`text-[10px] sm:text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                                             {item.label}
                                         </p>
                                         {item.href ? (
                                             <a
                                                 href={item.href}
-                                                className={`font-medium hover:underline ${isDark ? 'text-white' : 'text-gray-900'}`}
+                                                className={`text-xs sm:text-sm font-medium hover:underline ${isDark ? 'text-white' : 'text-gray-900'}`}
                                             >
                                                 {item.value}
                                             </a>
                                         ) : (
-                                            <p className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                            <p className={`text-xs sm:text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
                                                 {item.value}
                                             </p>
                                         )}
@@ -135,23 +135,23 @@ export default function Contact() {
 
                         {/* Social Links */}
                         <div>
-                            <p className={`text-sm mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                            <p className={`text-[10px] sm:text-xs mb-2 sm:mb-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                                 Find me on
                             </p>
-                            <div className="flex gap-4">
+                            <div className="flex gap-1.5 sm:gap-2">
                                 {socialLinks.map((social) => (
                                     <a
                                         key={social.label}
                                         href={social.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`p-3 rounded-xl transition-all duration-300 hover:-translate-y-1 ${isDark
+                                        className={`p-1.5 sm:p-2 rounded-md sm:rounded-lg transition-all duration-300 hover:-translate-y-1 ${isDark
                                             ? 'bg-dark-card hover:bg-dark-border text-gray-400 hover:text-white'
                                             : 'bg-light-card hover:bg-light-border text-gray-600 hover:text-gray-900'
                                             }`}
                                         aria-label={social.label}
                                     >
-                                        <social.icon size={20} />
+                                        <social.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                                     </a>
                                 ))}
                             </div>
@@ -165,12 +165,12 @@ export default function Contact() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 md:space-y-5">
                             {/* Name */}
                             <div>
                                 <label
                                     htmlFor="name"
-                                    className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
+                                    className={`block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
                                 >
                                     Your Name
                                 </label>
@@ -179,7 +179,7 @@ export default function Contact() {
                                     id="name"
                                     name="user_name"
                                     required
-                                    className={`w-full px-4 py-3 rounded-xl border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${isDark
+                                    className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${isDark
                                         ? 'bg-dark-card border-dark-border text-white placeholder-gray-500'
                                         : 'bg-white border-light-border text-gray-900 placeholder-gray-400'
                                         }`}
@@ -191,7 +191,7 @@ export default function Contact() {
                             <div>
                                 <label
                                     htmlFor="email"
-                                    className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
+                                    className={`block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
                                 >
                                     Your Email
                                 </label>
@@ -200,7 +200,7 @@ export default function Contact() {
                                     id="email"
                                     name="user_email"
                                     required
-                                    className={`w-full px-4 py-3 rounded-xl border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${isDark
+                                    className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${isDark
                                         ? 'bg-dark-card border-dark-border text-white placeholder-gray-500'
                                         : 'bg-white border-light-border text-gray-900 placeholder-gray-400'
                                         }`}
@@ -212,16 +212,16 @@ export default function Contact() {
                             <div>
                                 <label
                                     htmlFor="message"
-                                    className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
+                                    className={`block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
                                 >
                                     Message
                                 </label>
                                 <textarea
                                     id="message"
                                     name="message"
-                                    rows={5}
+                                    rows={4}
                                     required
-                                    className={`w-full px-4 py-3 rounded-xl border transition-colors focus:outline-none focus:ring-2 focus:ring-primary resize-none ${isDark
+                                    className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border transition-colors focus:outline-none focus:ring-2 focus:ring-primary resize-none ${isDark
                                         ? 'bg-dark-card border-dark-border text-white placeholder-gray-500'
                                         : 'bg-white border-light-border text-gray-900 placeholder-gray-400'
                                         }`}
@@ -233,7 +233,7 @@ export default function Contact() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className={`w-full flex items-center justify-center gap-2 px-6 py-4 font-semibold rounded-xl transition-all duration-300 ${isSubmitting
+                                className={`w-full flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl transition-all duration-300 ${isSubmitting
                                     ? 'bg-gray-500 cursor-not-allowed'
                                     : 'bg-gradient-to-r from-primary to-accent hover:shadow-lg hover:shadow-primary/25'
                                     } text-white`}
@@ -245,7 +245,7 @@ export default function Contact() {
                                     </>
                                 ) : (
                                     <>
-                                        <FiSend size={18} />
+                                        <FiSend className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                                         Send Message
                                     </>
                                 )}
@@ -253,13 +253,13 @@ export default function Contact() {
 
                             {/* Status Messages */}
                             {submitStatus === 'success' && (
-                                <p className="text-green-500 text-center">
-                                    ✅ Message sent successfully! I'll get back to you soon.
+                                <p className="text-green-500 text-center text-[10px] sm:text-xs">
+                                    ✅ Message sent! I'll get back to you soon.
                                 </p>
                             )}
                             {submitStatus === 'error' && (
-                                <p className="text-red-500 text-center">
-                                    ❌ Something went wrong. Please try again or email me directly.
+                                <p className="text-red-500 text-center text-[10px] sm:text-xs">
+                                    ❌ Something went wrong. Try again or email me.
                                 </p>
                             )}
                         </form>

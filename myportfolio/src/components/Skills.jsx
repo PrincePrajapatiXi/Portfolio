@@ -79,26 +79,26 @@ export default function Skills() {
     ];
 
     return (
-        <section id="skills" className="section relative">
-            <div className="max-w-7xl mx-auto">
+        <section id="skills" className="section relative py-10 sm:py-14 md:py-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 {/* Section Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="text-center mb-16"
+                    className="text-center mb-6 sm:mb-10 md:mb-14"
                 >
-                    <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                    <h2 className={`text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                         Skills & <span className="gradient-text">Technologies</span>
                     </h2>
-                    <p className={`text-lg max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <p className={`text-xs sm:text-sm md:text-base max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                         Technologies I work with to bring ideas to life
                     </p>
                 </motion.div>
 
                 {/* Skills Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
                     {categories.map((category, categoryIndex) => (
                         <motion.div
                             key={category.key}
@@ -106,15 +106,15 @@ export default function Skills() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-                            className={`p-6 rounded-2xl ${isDark
+                            className={`p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl ${isDark
                                 ? 'bg-dark-card border border-dark-border'
                                 : 'bg-light-card border border-light-border'
                                 }`}
                         >
                             {/* Category Header */}
-                            <div className="flex items-center gap-3 mb-6">
-                                <span className="text-2xl">{category.emoji}</span>
-                                <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                            <div className="flex items-center gap-2 sm:gap-2.5 mb-3 sm:mb-4 md:mb-5">
+                                <span className="text-base sm:text-lg md:text-xl">{category.emoji}</span>
+                                <h3 className={`text-sm sm:text-base md:text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
                                     {category.title}
                                 </h3>
                             </div>
@@ -124,7 +124,7 @@ export default function Skills() {
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
-                                className="flex flex-wrap gap-3"
+                                className="flex flex-wrap gap-1.5 sm:gap-2"
                             >
                                 {skills[category.key]?.map((skill, index) => {
                                     const Icon = iconMap[skill.icon] || FaCode;
@@ -138,17 +138,16 @@ export default function Skills() {
                                             viewport={{ once: true }}
                                             transition={{ delay: index * 0.05 }}
                                             whileHover={{ scale: 1.1, y: -3 }}
-                                            className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 ${isDark
+                                            className={`group relative flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 md:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg transition-all duration-300 ${isDark
                                                 ? 'bg-dark-surface hover:bg-dark-border'
                                                 : 'bg-white hover:bg-light-border shadow-sm'
                                                 }`}
                                         >
                                             <Icon
-                                                size={20}
+                                                className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 transition-transform duration-300 group-hover:scale-110"
                                                 style={{ color: isDark ? color : color }}
-                                                className="transition-transform duration-300 group-hover:scale-110"
                                             />
-                                            <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                                            <span className={`text-[11px] sm:text-xs md:text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                                                 {skill.name}
                                             </span>
                                         </motion.div>

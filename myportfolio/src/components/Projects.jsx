@@ -25,20 +25,20 @@ export default function Projects() {
     };
 
     return (
-        <section id="projects" className="section relative">
-            <div className="max-w-7xl mx-auto">
+        <section id="projects" className="section relative py-10 sm:py-14 md:py-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 {/* Section Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="text-center mb-16"
+                    className="text-center mb-6 sm:mb-10 md:mb-14"
                 >
-                    <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                    <h2 className={`text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                         Selected <span className="gradient-text">Projects</span>
                     </h2>
-                    <p className={`text-lg max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <p className={`text-xs sm:text-sm md:text-base max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                         Here are some of my best works that showcase my skills and passion for building exceptional web experiences.
                     </p>
                 </motion.div>
@@ -50,7 +50,7 @@ export default function Projects() {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 auto-rows-auto"
                     >
                         {featuredProjects.map((project) => {
                             // Dynamic column span based on size
@@ -85,9 +85,9 @@ export default function Projects() {
                     </motion.div>
                 ) : (
                     // Empty state when no projects
-                    <div className={`text-center py-16 rounded-2xl ${isDark ? 'bg-dark-card' : 'bg-light-card'}`}>
-                        <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                            No projects added yet. Add your projects in <code className="px-2 py-1 rounded bg-dark-surface">src/data/index.js</code>
+                    <div className={`text-center py-8 sm:py-12 md:py-16 rounded-xl sm:rounded-2xl ${isDark ? 'bg-dark-card' : 'bg-light-card'}`}>
+                        <p className={`text-sm sm:text-base md:text-lg px-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                            No projects added yet. Add your projects in <code className="px-2 py-1 rounded bg-dark-surface text-xs sm:text-sm">src/data/index.js</code>
                         </p>
                     </div>
                 )}
@@ -97,11 +97,11 @@ export default function Projects() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mt-12"
+                    className="text-center mt-6 sm:mt-8 md:mt-12"
                 >
                     <button
                         onClick={() => setShowAllProjects(true)}
-                        className={`px-8 py-4 font-semibold rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 ${isDark
+                        className={`px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 ${isDark
                             ? 'border-dark-border text-white hover:bg-dark-surface'
                             : 'border-light-border text-gray-900 hover:bg-light-card'
                             }`}
@@ -158,12 +158,12 @@ function ProjectCard({ project, isDark, onClick, isLarge }) {
         <motion.div
             whileHover={{ y: -5 }}
             onClick={onClick}
-            className={`group cursor-pointer rounded-2xl overflow-hidden h-full min-h-[280px] ${isLarge ? 'min-h-[350px]' : ''
+            className={`group cursor-pointer rounded-xl sm:rounded-2xl overflow-hidden h-full min-h-[200px] sm:min-h-[240px] md:min-h-[300px] ${isLarge ? 'min-h-[220px] sm:min-h-[280px] md:min-h-[360px]' : ''
                 } ${isDark ? 'bg-dark-card border border-dark-border' : 'bg-light-card border border-light-border'
                 } transition-all duration-300 hover:shadow-xl hover:shadow-primary/10`}
         >
             {/* Project Live Preview */}
-            <div className={`h-40 ${isLarge ? 'h-52' : ''} relative overflow-hidden`}>
+            <div className={`h-28 sm:h-32 md:h-44 ${isLarge ? 'h-32 sm:h-40 md:h-52' : ''} relative overflow-hidden`}>
                 {/* Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 ${isDark ? '' : 'from-primary-light/20 to-accent-light/20'
                     }`} />
@@ -183,33 +183,33 @@ function ProjectCard({ project, isDark, onClick, isLarge }) {
                 ) : (
                     // Fallback: Show first letter
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <span className={`text-6xl font-bold opacity-20 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                        <span className={`text-4xl sm:text-5xl md:text-6xl font-bold opacity-20 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                             {project.title.charAt(0)}
                         </span>
                     </div>
                 )}
 
                 {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                    <span className="text-white text-sm font-medium">Click for details</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3 sm:pb-4">
+                    <span className="text-white text-xs sm:text-sm font-medium">Click for details</span>
                 </div>
             </div>
 
             {/* Content */}
-            <div className="p-6">
-                <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+            <div className="p-3 sm:p-4 md:p-6">
+                <h3 className={`text-base sm:text-lg md:text-xl font-bold mb-1 sm:mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     {project.title}
                 </h3>
-                <p className={`text-sm mb-4 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                <p className={`text-xs sm:text-sm mb-2 sm:mb-3 md:mb-4 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                     {project.description}
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {project.tags.slice(0, 3).map((tag) => (
                         <span
                             key={tag}
-                            className={`px-3 py-1 text-xs rounded-full ${isDark
+                            className={`px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full ${isDark
                                 ? 'bg-dark-surface text-gray-300'
                                 : 'bg-light-border text-gray-700'
                                 }`}
@@ -218,7 +218,7 @@ function ProjectCard({ project, isDark, onClick, isLarge }) {
                         </span>
                     ))}
                     {project.tags.length > 3 && (
-                        <span className={`px-3 py-1 text-xs rounded-full ${isDark ? 'bg-dark-surface text-gray-400' : 'bg-light-border text-gray-500'
+                        <span className={`px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full ${isDark ? 'bg-dark-surface text-gray-400' : 'bg-light-border text-gray-500'
                             }`}>
                             +{project.tags.length - 3}
                         </span>
