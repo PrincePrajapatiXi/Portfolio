@@ -7,7 +7,11 @@ import path from 'path'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    host: true
+    host: true,
+    watch: {
+      usePolling: true,
+      interval: 300
+    }
   },
   resolve: {
     alias: {
