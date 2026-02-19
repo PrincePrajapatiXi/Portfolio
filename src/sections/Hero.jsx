@@ -1,3 +1,8 @@
+import { Button } from "@/components/Button";
+import {
+  ArrowRight,
+} from "lucide-react";
+
 export const Hero = () => {
     return (
         <section className="relative min-h-screen flex items-center overflow-hidden">
@@ -53,6 +58,13 @@ export const Hero = () => {
                                 React, Next.js, and TypeScript. I build scalable, performant web
                                 applications that users love.
                             </p>
+                        </div>
+
+                        {/* CTAs */}
+                        <div>
+                            <Button size="lg">
+                                Contact Me <ArrowRight className="w-5 h-5" />
+                            </Button>
                         </div>
                     </div>
                     {/* Right Column - Profile Image */}
