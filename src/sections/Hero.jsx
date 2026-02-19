@@ -1,7 +1,13 @@
 import { Button } from "@/components/Button";
 import {
-  ArrowRight,
+    ArrowRight,
+    ChevronDown,
+    Github,
+    Linkedin,
+    Twitter,
+    Download,
 } from "lucide-react";
+import { AnimatedBorderButton } from "../components/AnimatedBorderButton";
 
 export const Hero = () => {
     return (
@@ -32,7 +38,7 @@ export const Hero = () => {
             </div>
 
             {/* Content */}
-            <div className="container mc-auto px-6 pt-32 pb-20 relative z-10">
+            <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     {/* Left Column - Text Content */}
                     <div className="space-y-8">
@@ -44,7 +50,7 @@ export const Hero = () => {
 
                         {/* Headline */}
                         <div className="space-y-4">
-                            <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold loding-tight animate-fade-in animation-delay-100">
+                            <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold leading-tight animate-fade-in animation-delay-100">
                                 Crafting <span className="text-primary glow-text">digital</span>
                                 <br />
                                 experiences with
@@ -61,10 +67,14 @@ export const Hero = () => {
                         </div>
 
                         {/* CTAs */}
-                        <div>
-                            <Button size="lg">
-                                Contact Me <ArrowRight className="w-5 h-5" />
+                        <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
+                            <Button size="default">
+                                Contact Me <ArrowRight className="w-4 h-5" />
                             </Button>
+                            <AnimatedBorderButton>
+                                <Download className="w-5 h-5" />
+                                Download CV
+                            </AnimatedBorderButton>
                         </div>
                     </div>
                     {/* Right Column - Profile Image */}
