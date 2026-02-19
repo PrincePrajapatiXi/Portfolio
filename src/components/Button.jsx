@@ -9,13 +9,13 @@ export const Button = ({
 
   const sizeClasses = {
     sm: "px-4 py-2 text-sm",
-    default: "px-4 py-2 md:px-6 md:py-3 text-sm md:text-base",
+    default: "px-4 py-2.5 text-[13px] md:h-[52px] md:px-6 md:py-3 md:text-base",
     lg: "px-8 py-4 text-lg",
   };
   const classes = `${baseClasses} ${sizeClasses[size]} ${className}`;
   return (
     <button className={classes} {...props}>
-      <span className="relative flex items-center justify-center gap-2">
+      <span className="relative flex items-center justify-center gap-2 whitespace-nowrap">
         {children}
       </span>
     </button>

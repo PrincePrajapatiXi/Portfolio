@@ -8,7 +8,7 @@ export const AnimatedBorderButton = ({ children }) => {
         duration-1000 focus:outline-none focus-visible:ring-2 
         focus-visible:ring-primary focus-visible:ring-offset-2 
         disabled:opacity-50 disabled:cursor-not-allowed group 
-        px-3 py-2 md:px-4 md:py-3 text-sm md:text-base font-medium rounded-full overflow-visible 
+        px-3 py-2.5 text-[13px] md:h-[52px] md:px-6 md:py-3 md:text-base font-medium rounded-full overflow-visible 
         animated-border"
     >
       {/* Animated SVG Border */}
@@ -30,7 +30,7 @@ export const AnimatedBorderButton = ({ children }) => {
           className="animated-border-path"
         />
       </svg>
-      <span className="relative z-10 flex items-center justify-center gap-2">
+      <span className="relative z-10 flex items-center justify-center gap-2 whitespace-nowrap">
         {children}
       </span>
     </button>

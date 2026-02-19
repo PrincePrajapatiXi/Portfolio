@@ -37,7 +37,7 @@ export const Hero = () => {
             {/* Green Dots */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {[...Array(30)].map((_, i) => (
-                    <div className="absolute w-1.5 h-1.5 rounded-full opacity-60"
+                    <div key={i} className="absolute w-1.5 h-1.5 rounded-full opacity-60"
                         style={{
                             backgroundColor: "#20B2A6",
                             left: `${Math.random() * 100}%`,
@@ -51,12 +51,15 @@ export const Hero = () => {
             </div>
 
             {/* Content */}
-            <div className="container mx-auto px-4 md:px-6 pt-20 md:pt-32 pb-20 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 items-center">
-                    {/* Left Column - Text Content */}
-                    <div className="space-y-4 md:space-y-6 lg:space-y-8">
+            <div className="container mx-auto px-2 md:px-6 pt-20 md:pt-32 pb-20 relative z-10">
+
+                {/* 👇 BAS YAHAN CHANGE HAI: Grid hata kar Flexbox lagaya hai taaki Right Side pakka rahe 👇 */}
+                <div className="flex flex-row gap-4 md:gap-8 lg:gap-12 items-center w-full">
+
+                    {/* Left Column - Text Content (Strictly 50% width) */}
+                    <div className="w-[57%] md:w-1/2 flex-shrink-0 min-w-0 space-y-3 md:space-y-6 lg:space-y-8">
                         <div className="animate-fade-in">
-                            <span className="inline-flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 rounded-full glass text-xs md:text-sm text-primary">
+                            <span className="inline-flex items-center gap-1 px-4 py-3 md:px-4 md:py-2 rounded-full glass text-[10px] md:text-sm text-primary whitespace-nowrap">
                                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />Web Developer • React Specialist
                             </span>
                         </div>
@@ -80,8 +83,8 @@ export const Hero = () => {
                         </div>
 
                         {/* CTAs */}
-                        <div className="flex gap-2 md:gap-4 animate-fade-in animation-delay-300">
-                            <Button>
+                        <div className="flex items-center gap-1.5 md:gap-5 animate-fade-in animation-delay-300">
+                            <Button className="min-w-[90px]">
                                 Contact Me <ArrowRight className="w-4 h-4" />
                             </Button>
                             <AnimatedBorderButton>
@@ -101,13 +104,12 @@ export const Hero = () => {
                             ))}
                         </div>
                     </div>
-                    {/* Right Column - Profile Image */}
 
-                    <div className="flex relative animate-fade-in animation-delay-300 justify-center">
+                    {/* Right Column - Profile Image (Strictly 50% width) */}
+                    <div className="w-[40%] md:w-1/2 flex-shrink-0 min-w-0 flex relative animate-fade-in animation-delay-300 justify-center md:justify-end">
 
-                        {/* Profile Image */}
-
-                        <div className="relative w-full max-w-[240px] md:max-w-[280px]">
+                        {/* Profile Image (Size wapas tumhara wala kar diya: max-w-xs md:max-w-sm) */}
+                        <div className="relative w-full max-w-xs md:max-w-sm">
                             <div
                                 className="absolute inset-0 
               rounded-3xl bg-linear-to-br 
@@ -116,17 +118,17 @@ export const Hero = () => {
                             />
 
                             <div className="relative glass rounded-3xl p-1 glow-border">
-                                <img src="/profile-photo.jpg" alt="Prince" className="w-full aspect-4/5 object-cover rounded-2xl" />
+                                <img src="/profile-photo.jpg" alt="Prince" className="w-full aspect-[2/3] object-cover object-top rounded-2xl" />
 
                                 {/* Floationg Badge */}
-                                <div className="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 glass rounded-xl px-3 py-2 md:px-4 md:py-3 animate-float">
+                                <div className="flex absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 glass rounded-xl px-2 py-1 md:px-4 md:py-3 animate-float">
                                     <div className="flex items-center gap-2 md:gap-3">
                                         <div className="w-2 md:w-3 h-2 md:h-3 bg-green-500 rounded-full animate-pulse" />
                                         <span className="text-xs md:text-sm font-medium">Available for work</span>
                                     </div>
                                 </div>
                                 {/* Stats Badge */}
-                                <div className="absolute -top-2 -left-2 md:-top-4 md:-left-4 glass rounded-xl px-3 py-2 md:px-4 md:py-3 animate-float animation-delay-500">
+                                <div className="flex absolute -top-2 -left-2 md:-top-4 md:-left-4 glass rounded-xl px-2 py-1 md:px-4 md:py-3 animate-float animation-delay-500">
                                     <div className="text-lg md:text-2xl font-bold text-primary">5</div>
                                     <div className="text-xs text-muted-foreground">Months Exp.</div>
                                 </div>
