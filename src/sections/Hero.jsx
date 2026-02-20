@@ -129,8 +129,8 @@ export const Hero = () => {
                                 </div>
                                 {/* Stats Badge */}
                                 <div className="flex absolute -top-2 -left-2 md:-top-4 md:-left-4 glass rounded-xl px-2 py-1 md:px-4 md:py-3 animate-float animation-delay-500">
-                                    <div className="text-lg md:text-2xl font-bold text-primary">5</div>
-                                    <div className="text-xs text-muted-foreground">Months Exp.</div>
+                                    <div className="text-lg md:text-2xl font-bold text-primary">0</div>
+                                    <div className="text-xs text-muted-foreground">Years Exp.</div>
                                 </div>
                             </div>
                         </div>
