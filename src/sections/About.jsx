@@ -34,7 +34,7 @@ export const About = () => {
                     <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-primary/10 text-primary text-[10px] md:text-sm font-medium tracking-wider uppercase">About Me</span>
                 </div>
 
-                <h2 className="text-xl md:text-5xl font-bold leading-tight animate-fade-in animation-delay-100 text-secondary-foreground mb-5 md:mb-10">
+                <h2 className="text-xl md:text-5xl font-bold leading-tight animate-fade-in animation-delay-100 text-secondary-foreground mb-5 md:mb-10 md:max-w-[50%]">
                     Building the future,
                     <span className="font-serif italic font-normal text-white"> one component at a time.</span>
                 </h2>
@@ -51,6 +51,13 @@ export const About = () => {
                             </p>
                             <p>
                                 When I'm not writing code, you'll find me exploring <span className="text-foreground font-medium">emerging technologies</span>, deepening my understanding of software architecture, and continuously refining my problem-solving skills to stay ahead in the ever-evolving tech landscape.
+                            </p>
+                        </div>
+
+                        {/* Mission Quote - Desktop only, inside left column */}
+                        <div className="hidden md:block glass rounded-2xl p-6 glow-border animate-fade-in animation-delay-300">
+                            <p className="text-lg font-medium italic text-foreground">
+                                "My mission is to create digital experiences that are not just functional, but truly delightful — products that users love to use and developers love to maintain."
                             </p>
                         </div>
 
@@ -71,10 +78,10 @@ export const About = () => {
                     </div>
                 </div>
 
-                {/* Mission Quote - Full Width */}
-                <div className="glass rounded-xl md:rounded-2xl p-3 md:p-6 glow-border animate-fade-in animation-delay-300 mt-5 md:mt-10">
-                    <p className="text-[11px] md:text-md font-medium italic text-foreground">
-                        My mission is to build fast, scalable web applications that solve real problems — writing clean, maintainable code to deliver seamless and engaging user experiences.
+                {/* Mission Quote - Mobile only, full width */}
+                <div className="md:hidden glass rounded-xl p-3 glow-border animate-fade-in animation-delay-300 mt-5">
+                    <p className="text-[11px] font-medium italic text-foreground">
+                        "My mission is to create digital experiences that are not just functional, but truly delightful — products that users love to use and developers love to maintain."
                     </p>
                 </div>
             </div>
