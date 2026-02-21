@@ -57,7 +57,7 @@ export const Hero = () => {
                 <div className="flex flex-row gap-4 md:gap-8 lg:gap-12 items-center w-full">
 
                     {/* Left Column - Text Content (Strictly 50% width) */}
-                    <div className="w-[57%] md:w-1/2 flex-shrink-0 min-w-0 space-y-3 md:space-y-6 lg:space-y-8">
+                    <div className="w-[57%] md:w-1/2 shrink-0 min-w-0 space-y-3 md:space-y-6 lg:space-y-8">
                         <div className="animate-fade-in">
                             <span className="inline-flex items-center gap-1 px-4 py-3 md:px-4 md:py-2 rounded-full glass text-[12px] md:text-sm text-primary whitespace-nowrap">
                                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />Web Developer • React Specialist
@@ -106,7 +106,7 @@ export const Hero = () => {
                     </div>
 
                     {/* Right Column - Profile Image (Strictly 50% width) */}
-                    <div className="w-[40%] md:w-1/2 flex-shrink-0 min-w-0 flex relative animate-fade-in animation-delay-300 justify-center">
+                    <div className="w-[40%] md:w-1/2 shrink-0 min-w-0 flex relative animate-fade-in animation-delay-300 justify-center">
 
                         {/* Profile Image (Size wapas tumhara wala kar diya: max-w-xs md:max-w-sm) */}
                         <div className="relative w-full max-w-xs md:max-w-sm">
@@ -118,7 +118,7 @@ export const Hero = () => {
                             />
 
                             <div className="relative glass rounded-3xl p-1 glow-border">
-                                <img src="/profile-photo.jpg" alt="Prince" className="w-full aspect-[2/3] object-cover object-top rounded-2xl" />
+                                <img src="/profile-photo.jpg" alt="Prince" className="w-full aspect-2/3 object-cover object-top rounded-2xl" />
 
                                 {/* Floationg Badge */}
                                 <div className="flex absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 glass rounded-xl px-2 py-1 md:px-4 md:py-3 animate-float">
