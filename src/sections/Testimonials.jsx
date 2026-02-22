@@ -50,20 +50,20 @@ export const Testimonials = () => {
     return (
         <section
             id="testimonials"
-            className="py-32 relative overflow-hidden">
+            className="py-16 md:py-32 relative overflow-hidden">
             <div
                 className="absolute top-1/2 left-1/2
-       w-[800px] h-[800px] bg-primary/5
+       w-[400px] h-[400px] md:w-[800px] md:h-[800px] bg-primary/5
         rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
             />
             <div
                 className="container mx-auto 
-      px-6 relative z-10"
+      px-4 md:px-6 relative z-10"
             >
                 {/* Section Header */}
                 <div
                     className="text-center max-w-3xl 
-        mx-auto mb-16"
+        mx-auto mb-8 md:mb-16"
                 >
                     <span
                         className="text-secondary-foreground 
@@ -73,8 +73,8 @@ export const Testimonials = () => {
                         What People Say
                     </span>
                     <h2
-                        className="text-4xl md:text-5xl 
-          font-bold mt-4 mb-6 animate-fade-in 
+                        className="text-3xl md:text-5xl 
+          font-bold mt-3 md:mt-4 mb-4 md:mb-6 animate-fade-in 
           animation-delay-100 text-secondary-foreground"
                     >
                         Kind words from{" "}
@@ -91,30 +91,30 @@ export const Testimonials = () => {
                 <div className="max-w-4xl mx-auto">
                     <div className="relative">
                         {/* Main Testimonial */}
-                        <div className="glass p-8 rounded-3xl md:p-12 glow-border animate-fade-in animation-delay-200">
-                            <div className="absolute -top-4 left-8 w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                                <Quote className="w-6 h-6 text-primary-foreground" />
+                        <div className="glass p-5 rounded-2xl md:p-12 md:rounded-3xl glow-border animate-fade-in animation-delay-200">
+                            <div className="absolute -top-3 left-6 w-9 h-9 md:-top-4 md:left-8 md:w-12 md:h-12 rounded-full bg-primary flex items-center justify-center">
+                                <Quote className="w-4 h-4 md:w-6 md:h-6 text-primary-foreground" />
                             </div>
 
-                            <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-8 pt-4">"{testimonials[activeIdx].quote}"</blockquote>
+                            <blockquote className="text-base md:text-2xl font-medium leading-relaxed mb-5 md:mb-8 pt-4">"{testimonials[activeIdx].quote}"</blockquote>
 
                             <div className="flex items-center gap-4">
                                 <img
                                     src={testimonials[activeIdx].avatar}
                                     alt={testimonials[activeIdx].author}
-                                    className="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20"
+                                    className="w-10 h-10 md:w-14 md:h-14 rounded-full object-cover ring-2 ring-primary/20"
                                 />
                                 <div>
-                                    <div className="font-semibold">{testimonials[activeIdx].author}</div>
-                                    <div className="text-sm text-muted-foreground">{testimonials[activeIdx].role}</div>
+                                    <div className="text-sm md:text-base font-semibold">{testimonials[activeIdx].author}</div>
+                                    <div className="text-xs md:text-sm text-muted-foreground">{testimonials[activeIdx].role}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* Testimonials Navigation */}
-                    <div className="flex items-center justify-center gap-4 mt-8">
-                        <button className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all" onClick={previous}>
+                    <div className="flex items-center justify-center gap-3 md:gap-4 mt-6 md:mt-8">
+                        <button className="p-2 md:p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all" onClick={previous}>
                             <ChevronLeft />
                         </button>
 
@@ -124,8 +124,8 @@ export const Testimonials = () => {
                                     key={idx}
                                     onClick={() => setActiveIdx(idx)}
                                     className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === activeIdx
-                                            ? "w-8 bg-primary"
-                                            : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                                        ? "w-8 bg-primary"
+                                        : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                                         }`}
                                 />
                             ))}
@@ -133,7 +133,7 @@ export const Testimonials = () => {
 
                         <button
                             onClick={next}
-                            className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all">
+                            className="p-2 md:p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all">
                             <ChevronRight />
                         </button>
                     </div>

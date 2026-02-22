@@ -24,27 +24,27 @@ const projects = [
 
 export const Projects = () => {
     return (
-        <section id="about" className="py-16 md:py-32 relative overflow-hidden">
+        <section id="projects" className="py-16 md:py-32 relative overflow-hidden">
             {/* Bg glows */}
             <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
             <div className="container mx-auto px-4 md:px-6 relative z-10">
                 {/* Section Header */}
-                <div className="text-center mx-auto max-w-3xl mb-16">
-                    <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">Featured Work</span>
-                    <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+                <div className="text-center mx-auto max-w-3xl mb-8 md:mb-16">
+                    <span className="text-secondary-foreground text-xs md:text-sm font-medium tracking-wider uppercase animate-fade-in">Featured Work</span>
+                    <h2 className="text-3xl md:text-5xl font-bold mt-3 md:mt-4 mb-4 md:mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
                         Projects that
                         <span className="font-serif italic font-normal text-white"> make an impact.
                         </span>
                     </h2>
-                    <p className="text-muted-foreground animate-fade-in animation-delay-200">
+                    <p className="text-sm md:text-base text-muted-foreground animate-fade-in animation-delay-200">
                         A selection of my recent work, from complex web applications to
                         innovative tools that solve real-world problems.
                     </p>
                 </div>
 
                 {/* Projects Grid */}
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-5 md:gap-8">
                     {projects.map((project, idx) => (
                         <div key={idx} className="group glass rounded-2xl overflow-hidden animate-fade-in md:row-span-1" style={{ animationDelay: `${(idx + 1) * 100}ms` }}>
                             {/* Image */}
@@ -75,7 +75,7 @@ export const Projects = () => {
                             </div>
 
                             {/* Content */}
-                            <div className="p-6 space-y-4">
+                            <div className="p-4 md:p-6 space-y-3 md:space-y-4">
                                 <div className="flex items-start justify-between">
                                     <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">{project.title}</h3>
                                     <ArrowUpRight
@@ -84,11 +84,11 @@ export const Projects = () => {
                    group-hover:translate-x-1 
                    group-hover:-translate-y-1 transition-all" />
                                 </div>
-                                <p className="text-muted-foreground text-sm">{project.description}</p>
+                                <p className="text-muted-foreground text-xs md:text-sm">{project.description}</p>
                                 <div className="flex flex-wrap gap-2">{project.tags.map((tag, tagIdx) => (
                                     <span
                                         key={tagIdx}
-                                        className="px-4 py-1.5 rounded-full bg-surface text-xs font-medium border border-border/50 text-muted-foreground hover:border-primary/50 hover:text-primary transition-all duration-300">{tag}
+                                        className="px-2.5 py-1 md:px-4 md:py-1.5 rounded-full bg-surface text-[10px] md:text-xs font-medium border border-border/50 text-muted-foreground hover:border-primary/50 hover:text-primary transition-all duration-300">{tag}
                                     </span>
                                 ))}</div>
                             </div>
