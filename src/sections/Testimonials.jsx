@@ -28,7 +28,7 @@ const testimonials = [
     },
     {
         quote:
-            "The portfolio looks serious and better now.Instead of flashy and weird elements it focuses on the key factors and makes the decisions easir.Would really like to try the services.",
+            "The portfolio looks serious and better now. Instead of flashy and weird elements it focuses on the key factors and makes the decisions easier. Would really like to try the services.",
         author: "Utsav",
         role: "Front end developer",
         avatar:
@@ -96,7 +96,7 @@ export const Testimonials = () => {
                                 <Quote className="w-6 h-6 text-primary-foreground" />
                             </div>
 
-                            <blockquote className="text-xl md:2xl font-medium leading-relaxed mb-8 pt-4">"{testimonials[activeIdx].quote}"</blockquote>
+                            <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-8 pt-4">"{testimonials[activeIdx].quote}"</blockquote>
 
                             <div className="flex items-center gap-4">
                                 <img
@@ -121,19 +121,19 @@ export const Testimonials = () => {
                         <div className="flex gap-2">
                             {testimonials.map((_, idx) => (
                                 <button
-                                onClick={() => setActiveIdx(idx)}
-                                className={`w-2 h-2 rounded-b-full transition-all duration-300 ${
-                                    idx === activeIdx
-                                    ? "w-8 bg-primary" 
-                                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                                    }`}
+                                    key={idx}
+                                    onClick={() => setActiveIdx(idx)}
+                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === activeIdx
+                                            ? "w-8 bg-primary"
+                                            : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                                        }`}
                                 />
                             ))}
                         </div>
 
-                        <button 
-                        onClick={next}
-                        className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all">
+                        <button
+                            onClick={next}
+                            className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all">
                             <ChevronRight />
                         </button>
                     </div>
