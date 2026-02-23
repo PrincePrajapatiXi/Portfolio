@@ -78,7 +78,7 @@ export const Footer = () => {
             </div>
 
             {/* Main Footer Content */}
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-4 md:px-6 relative z-10">
                 {/* Top Section */}
                 <div className="py-8 md:py-16 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 lg:gap-8">
                     {/* Brand Column */}
