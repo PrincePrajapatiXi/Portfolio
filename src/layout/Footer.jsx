@@ -155,8 +155,8 @@ export const Footer = () => {
                                             group-hover/contact:bg-primary/20 transition-colors duration-300">
                                             <item.icon className="w-3.5 h-3.5 text-primary" />
                                         </div>
-                                        <item.icon className="w-3.5 h-3.5 text-primary shrink-0 md:hidden" />
-                                        <span className="text-xs md:text-sm leading-relaxed truncate md:break-all md:whitespace-normal">
+                                        <item.icon className="w-3 h-3 text-primary shrink-0 md:hidden" />
+                                        <span className="text-[11px] md:text-sm leading-relaxed">
                                             {item.value}
                                         </span>
                                     </a>
