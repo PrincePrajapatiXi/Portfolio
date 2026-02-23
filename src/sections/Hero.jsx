@@ -3,8 +3,6 @@ import {
     ArrowRight,
     ChevronDown,
     Github,
-    Linkedin,
-    Twitter,
     Download,
     Instagram,
 } from "lucide-react";
@@ -53,7 +51,6 @@ export const Hero = () => {
             {/* Content */}
             <div className="container mx-auto px-2 md:px-6 pt-20 md:pt-32 pb-20 relative z-10">
 
-                {/* 👇 BAS YAHAN CHANGE HAI: Grid hata kar Flexbox lagaya hai taaki Right Side pakka rahe 👇 */}
                 <div className="flex flex-row gap-4 md:gap-8 lg:gap-12 items-center w-full">
 
                     {/* Left Column - Text Content (Strictly 50% width) */}
@@ -108,7 +105,7 @@ export const Hero = () => {
                     {/* Right Column - Profile Image (Strictly 50% width) */}
                     <div className="w-[40%] md:w-1/2 shrink-0 min-w-0 flex relative animate-fade-in animation-delay-300 justify-center">
 
-                        {/* Profile Image (Size wapas tumhara wala kar diya: max-w-xs md:max-w-sm) */}
+                        {/* Profile Image */}
                         <div className="relative w-full max-w-xs md:max-w-sm">
                             <div
                                 className="absolute inset-0 
@@ -120,7 +117,7 @@ export const Hero = () => {
                             <div className="relative glass rounded-3xl p-1 glow-border">
                                 <img src="/profile-photo.jpg" alt="Prince" className="w-full aspect-2/3 object-cover object-top rounded-2xl" />
 
-                                {/* Floationg Badge */}
+                                {/* Floating Badge */}
                                 <div className="flex absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 glass rounded-xl px-2 py-1 md:px-4 md:py-3 animate-float">
                                     <div className="flex items-center gap-2 md:gap-3">
                                         <div className="w-2 md:w-3 h-2 md:h-3 bg-green-500 rounded-full animate-pulse" />
