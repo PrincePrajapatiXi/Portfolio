@@ -7,32 +7,28 @@ const testimonials = [
             "Just took a look at Prince’s updated portfolio and it’s top-tier! The UI is incredibly smooth, and you can tell Prince really cares about the fine details that make a site feel premium. It’s rare to find a developer who balances aesthetics and performance this well. Prince absolutely nailed this—highly recommend checking out his work.",
         author: "Army of mr random",
         role: "Owner of army smp",
-        avatar:
-            "https://i.ibb.co/2YFD6DjV/review1.jpg",
+        avatar: "/review1.jpg",
     },
     {
         quote:
             "Took his services recently. The Developer Prince is really friendly and cooperative willing to help when required. He made the site stunning and feel premium with optimised performance! .Totally recommend for everyone. ✌️",
         author: "Void",
         role: "Youtuber",
-        avatar:
-            "https://i.ibb.co/b5NykN2d/review2.png",
+        avatar: "/review2.png",
     },
     {
         quote:
             "Prince's expertise in React and TypeScript helped us rebuild our entire frontend in record time. His architectural decisions continue to pay dividends.",
         author: "Nukkad gamer",
         role: "Software Engineer, Youtuber",
-        avatar:
-            "https://i.ibb.co/jkdsqk6t/review3.jpg",
+        avatar: "/review3.JPG",
     },
     {
         quote:
             "The portfolio looks serious and better now. Instead of flashy and weird elements it focuses on the key factors and makes the decisions easier. Would really like to try the services.",
         author: "Utsav",
         role: "Front end developer",
-        avatar:
-            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+        avatar: "/review4.JPG",
     },
 ];
 
