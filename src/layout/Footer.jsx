@@ -194,9 +194,7 @@ export const Footer = () => {
                 {/* Bottom Bar */}
                 <div className="py-6 md:py-8 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <p className="text-muted-foreground text-sm text-center sm:text-left">
-                        © {new Date().getFullYear()} Prince. Built with{" "}
-                        <Heart className="w-3.5 h-3.5 inline text-red-400 animate-pulse" />{" "}
-                        using React & Tailwind CSS.
+                        © {new Date().getFullYear()} Prince. Turning ideas into reality, one line of code at a time.
                     </p>
 
                     {/* Back to Top */}
