@@ -141,21 +141,22 @@ export const Footer = () => {
                         <h4 className="text-sm font-semibold uppercase tracking-wider text-primary">
                             Get In Touch
                         </h4>
-                        <ul className="space-y-3 md:space-y-4">
+                        <ul className="space-y-2 md:space-y-4">
                             {contactDetails.map((item, idx) => (
                                 <li key={idx}>
                                     <a
                                         href={item.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-start gap-3 text-muted-foreground hover:text-foreground
+                                        className="flex items-center gap-2 md:gap-3 text-muted-foreground hover:text-foreground
                                         transition-colors duration-300 group/contact"
                                     >
-                                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5
+                                        <div className="hidden md:flex w-8 h-8 rounded-lg bg-primary/10 items-center justify-center shrink-0
                                             group-hover/contact:bg-primary/20 transition-colors duration-300">
                                             <item.icon className="w-3.5 h-3.5 text-primary" />
                                         </div>
-                                        <span className="text-sm leading-relaxed break-all">
+                                        <item.icon className="w-3.5 h-3.5 text-primary shrink-0 md:hidden" />
+                                        <span className="text-xs md:text-sm leading-relaxed truncate md:break-all md:whitespace-normal">
                                             {item.value}
                                         </span>
                                     </a>
