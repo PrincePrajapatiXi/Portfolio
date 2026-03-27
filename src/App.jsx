@@ -9,14 +9,14 @@ import { Contact } from "@/sections/Contact";
 import { Footer } from "@/layout/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
-import { AIChatbot } from "@/components/AIChatbot";
+// import { AIChatbot } from "@/components/AIChatbot"; // Removed as requested
 
 function App() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <ScrollProgress />
       <CustomCursor />
-      <AIChatbot />
+      {/* <AIChatbot /> */}
       <Navbar />
       <main>
         <Hero />

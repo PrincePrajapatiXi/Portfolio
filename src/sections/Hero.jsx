@@ -94,10 +94,10 @@ export const Hero = () => {
                         </motion.div>
 
                         <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4">
-                            <Button className="h-14 px-8 text-lg group">
+                            <Button href="#contact" className="h-14 px-8 text-lg group">
                                 Let's Talk <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Button>
-                            <AnimatedBorderButton className="h-14 px-8">
+                            <AnimatedBorderButton href="/resume.pdf" target="_blank" className="h-14 px-8">
                                 <Download className="mr-2 w-5 h-5" /> Download CV
                             </AnimatedBorderButton>
                         </motion.div>

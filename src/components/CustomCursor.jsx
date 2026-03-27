@@ -1,266 +1,218 @@
 import { useEffect, useState, useRef, useCallback } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { motion, useSpring, useMotionValue, useVelocity, useTransform, AnimatePresence } from "framer-motion";
+import { Eye, ExternalLink, MousePointer2, Move, ArrowUpRight } from "lucide-react";
 
-// ─── Cursor States ────────────────────────────────────────────────────────────
-const SPRING_CONFIG = { stiffness: 600, damping: 32, mass: 0.4 };
-const TRAIL_SPRING  = { stiffness: 160, damping: 22, mass: 0.8 };
+// ─── Advanced Physics ────────────────────────────────────────────────────────
+const FAST_SPRING = { stiffness: 800, damping: 35, mass: 0.2 };
+const SLOW_SPRING = { stiffness: 120, damping: 24, mass: 1.2 };
 
 const stateStyles = {
   default: {
-    outerSize: 36,
-    outerOpacity: 1,
-    outerBg: "transparent",
-    outerBorder: "2px solid var(--color-primary, #20b2a6)",
-    innerSize: 6,
-    label: null,
-    rotate: 0,
-    outerBorderRadius: "50%",
+    size: 40,
+    opacity: 1,
+    bg: "transparent",
+    border: "1.5px solid var(--color-primary, #20b2a6)",
+    icon: null,
+    radius: "50%",
+    blend: "normal",
   },
   hover: {
-    outerSize: 52,
-    outerOpacity: 1,
-    outerBg: "rgba(32,178,166,0.12)",
-    outerBorder: "1.5px solid var(--color-primary, #20b2a6)",
-    innerSize: 0,
-    label: null,
-    rotate: 0,
-    outerBorderRadius: "50%",
+    size: 0, // Shrink to 0 when magnetic
+    opacity: 1,
+    bg: "rgba(32,178,166,0.15)",
+    border: "1.5px solid var(--color-primary, #20b2a6)",
+    icon: <ArrowUpRight className="w-5 h-5 text-primary" />,
+    radius: "50%",
+    blend: "normal",
   },
   text: {
-    outerSize: 3,
-    outerOpacity: 0.9,
-    outerBg: "var(--color-primary, #20b2a6)",
-    outerBorder: "none",
-    innerSize: 0,
-    label: null,
-    rotate: 0,
-    outerBorderRadius: "2px",
+    size: 4,
+    opacity: 1,
+    bg: "var(--color-primary, #20b2a6)",
+    border: "none",
+    icon: null,
+    radius: "2px",
+    blend: "difference", // Flips color on text
   },
   image: {
-    outerSize: 72,
-    outerOpacity: 1,
-    outerBg: "rgba(32,178,166,0.08)",
-    outerBorder: "1.5px dashed var(--color-primary, #20b2a6)",
-    innerSize: 0,
-    label: "VIEW",
-    rotate: 45,
-    outerBorderRadius: "50%",
+    size: 80,
+    opacity: 1,
+    bg: "rgba(32,178,166,0.1)",
+    border: "1.5px solid var(--color-primary, #20b2a6)",
+    icon: <Eye className="w-6 h-6 text-primary outline-1" />,
+    radius: "50%",
+    blend: "normal",
   },
   drag: {
-    outerSize: 44,
-    outerOpacity: 1,
-    outerBg: "rgba(32,178,166,0.2)",
-    outerBorder: "2px solid var(--color-primary, #20b2a6)",
-    innerSize: 4,
-    label: null,
-    rotate: 0,
-    outerBorderRadius: "50%",
+    size: 50,
+    opacity: 1,
+    bg: "rgba(32,178,166,0.3)",
+    border: "2px solid var(--color-primary, #20b2a6)",
+    icon: <Move className="w-5 h-5 text-primary" />,
+    radius: "50%",
+    blend: "normal",
   },
   hidden: {
-    outerSize: 0,
-    outerOpacity: 0,
-    outerBg: "transparent",
-    outerBorder: "none",
-    innerSize: 0,
-    label: null,
-    rotate: 0,
-    outerBorderRadius: "50%",
+    size: 0,
+    opacity: 0,
+    bg: "transparent",
+    border: "none",
+    icon: null,
+    radius: "50%",
+    blend: "normal",
   },
 };
 
-// ─── Trail Particle ───────────────────────────────────────────────────────────
-const TrailDot = ({ x, y, size, opacity }) => (
-  <motion.div
-    className="fixed top-0 left-0 rounded-full pointer-events-none z-[9998] hidden md:block"
-    style={{
-      x,
-      y,
-      translateX: "-50%",
-      translateY: "-50%",
-      width: size,
-      height: size,
-      background: "var(--color-primary, #20b2a6)",
-      opacity,
-    }}
-  />
-);
-
-// ─── Main Component ───────────────────────────────────────────────────────────
 export const CustomCursor = () => {
   const [cursorState, setCursorState] = useState("default");
-  const [labelText, setLabelText] = useState(null);
-  const stateRef = useRef("default");
+  const [isMagnetic, setIsMagnetic] = useState(false);
+  const [magneticElement, setMagneticElement] = useState(null);
+  
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  // Primary cursor (fast)
-  const curX = useSpring(0, SPRING_CONFIG);
-  const curY = useSpring(0, SPRING_CONFIG);
+  // Velocity for stretching effect
+  const velX = useVelocity(mouseX);
+  const velY = useVelocity(mouseY);
+  const skewX = useTransform(velX, [-3000, 3000], [-30, 30]);
+  const skewY = useTransform(velY, [-3000, 3000], [-30, 30]);
 
-  // Trail layer 1 (medium)
-  const t1X = useSpring(0, TRAIL_SPRING);
-  const t1Y = useSpring(0, TRAIL_SPRING);
+  // Smoothed position
+  const curX = useSpring(mouseX, FAST_SPRING);
+  const curY = useSpring(mouseY, FAST_SPRING);
 
-  // Trail layer 2 (slow)
-  const t2X = useSpring(0, { stiffness: 90, damping: 18, mass: 1 });
-  const t2Y = useSpring(0, { stiffness: 90, damping: 18, mass: 1 });
-
-  // Inner dot (instant)
-  const dotX = useMotionValue(0);
-  const dotY = useMotionValue(0);
+  // Trail layers
+  const tX = useSpring(mouseX, SLOW_SPRING);
+  const tY = useSpring(mouseY, SLOW_SPRING);
 
   const detectState = useCallback((target) => {
     if (!target) return "default";
-
-    const isInteractive =
-      target.tagName === "BUTTON" ||
-      target.tagName === "A" ||
-      target.closest("button") ||
-      target.closest("a") ||
-      target.getAttribute("role") === "button" ||
-      target.closest("[role='button']") ||
-      target.dataset.cursor === "hover";
-
-    const isText =
-      target.tagName === "P" ||
-      target.tagName === "H1" ||
-      target.tagName === "H2" ||
-      target.tagName === "H3" ||
-      target.tagName === "H4" ||
-      target.tagName === "SPAN" ||
-      target.tagName === "LI" ||
-      target.tagName === "INPUT" ||
-      target.tagName === "TEXTAREA" ||
-      target.dataset.cursor === "text";
-
-    const isImage =
-      target.tagName === "IMG" ||
-      target.tagName === "FIGURE" ||
-      target.tagName === "VIDEO" ||
-      target.closest("figure") ||
-      target.dataset.cursor === "image";
-
-    if (isInteractive) return "hover";
-    if (isImage)       return "image";
-    if (isText)        return "text";
+    const interactive = target.closest("button, a, [role='button']");
+    if (interactive) return "hover";
+    if (target.tagName === "IMG" || target.closest("figure")) return "image";
+    if (target.tagName === "P" || target.tagName === "H1" || target.tagName === "H2" || target.tagName === "H3" || target.tagName === "SPAN" || target.tagName === "LI") return "text";
     return "default";
   }, []);
 
   useEffect(() => {
-    const onMove = (e) => {
-      curX.set(e.clientX);
-      curY.set(e.clientY);
-      t1X.set(e.clientX);
-      t1Y.set(e.clientY);
-      t2X.set(e.clientX);
-      t2Y.set(e.clientY);
-      dotX.set(e.clientX);
-      dotY.set(e.clientY);
-    };
-
-    const onOver = (e) => {
-      const next = detectState(e.target);
-      if (next !== stateRef.current) {
-        stateRef.current = next;
-        setCursorState(next);
-        setLabelText(stateStyles[next].label);
+    const handleMove = (e) => {
+      const { clientX: x, clientY: y } = e;
+      
+      // Magnetic Logic
+      const target = document.elementFromPoint(x, y);
+      const interactive = target?.closest("button, a, [role='button']");
+      
+      if (interactive) {
+        const rect = interactive.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Only snap if close to center
+        const dist = Math.hypot(x - centerX, y - centerY);
+        if (dist < 80) {
+          mouseX.set(centerX);
+          mouseY.set(centerY);
+          setIsMagnetic(true);
+          setMagneticElement(interactive);
+          setCursorState("hover");
+          return;
+        }
       }
+
+      mouseX.set(x);
+      mouseY.set(y);
+      setIsMagnetic(false);
+      setMagneticElement(null);
+      setCursorState(detectState(target));
     };
 
-    const onDown = () => {
-      stateRef.current = "drag";
-      setCursorState("drag");
-    };
+    const handleDown = () => setCursorState("drag");
+    const handleUp = () => setCursorState("default");
+    const handleLeave = () => setCursorState("hidden");
 
-    const onUp = () => {
-      const next = detectState(document.elementFromPoint(curX.get(), curY.get()));
-      stateRef.current = next;
-      setCursorState(next);
-    };
-
-    const onLeave = () => setCursorState("hidden");
-    const onEnter = () => setCursorState(stateRef.current);
-
-    window.addEventListener("mousemove",   onMove,  { passive: true });
-    window.addEventListener("mouseover",   onOver,  { passive: true });
-    window.addEventListener("mousedown",   onDown);
-    window.addEventListener("mouseup",     onUp);
-    document.addEventListener("mouseleave", onLeave);
-    document.addEventListener("mouseenter", onEnter);
-
-    // Hide native cursor globally
+    window.addEventListener("mousemove", handleMove, { passive: true });
+    window.addEventListener("mousedown", handleDown);
+    window.addEventListener("mouseup", handleUp);
+    document.addEventListener("mouseleave", handleLeave);
+    
     document.documentElement.style.cursor = "none";
 
     return () => {
-      window.removeEventListener("mousemove",   onMove);
-      window.removeEventListener("mouseover",   onOver);
-      window.removeEventListener("mousedown",   onDown);
-      window.removeEventListener("mouseup",     onUp);
-      document.removeEventListener("mouseleave", onLeave);
-      document.removeEventListener("mouseenter", onEnter);
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mousedown", handleDown);
+      window.removeEventListener("mouseup", handleUp);
+      document.removeEventListener("mouseleave", handleLeave);
       document.documentElement.style.cursor = "";
     };
-  }, [curX, curY, t1X, t1Y, t2X, t2Y, dotX, dotY, detectState]);
+  }, [mouseX, mouseY, detectState]);
 
-  const s = stateStyles[cursorState];
+  const s = stateStyles[cursorState] || stateStyles.default;
 
   return (
     <>
-      <TrailDot x={t2X} y={t2Y} size={5} opacity={0.18} />
-      <TrailDot x={t1X} y={t1Y} size={7} opacity={0.28} />
-
-      {s.innerSize > 0 && (
+      {/* Magnetic Element Highlight */}
+      {isMagnetic && magneticElement && (
         <motion.div
-          className="fixed top-0 left-0 pointer-events-none z-[10000] hidden md:block"
-          style={{
-            x: dotX,
-            y: dotY,
-            translateX: "-50%",
-            translateY: "-50%",
-            width: s.innerSize,
-            height: s.innerSize,
-            borderRadius: "50%",
-            background: "var(--color-primary, #20b2a6)",
-          }}
+           layoutId="magnetic-glow"
+           className="fixed top-0 left-0 pointer-events-none z-[9997] rounded-full bg-primary/10 border border-primary/30"
+           initial={false}
+           animate={{
+              x: magneticElement.getBoundingClientRect().left,
+              y: magneticElement.getBoundingClientRect().top,
+              width: magneticElement.getBoundingClientRect().width,
+              height: magneticElement.getBoundingClientRect().height,
+              borderRadius: window.getComputedStyle(magneticElement).borderRadius,
+           }}
+           transition={{ type: "spring", stiffness: 400, damping: 30 }}
         />
       )}
 
+      {/* Trail */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center select-none hidden md:block"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary/20 pointer-events-none z-[9998] hidden md:block"
+        style={{ x: tX, y: tY, translateX: "-50%", translateY: "-50%", mixBlendMode: "difference" }}
+      />
+
+      {/* Main Cursor Ring */}
+      <motion.div
+        className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center hidden md:flex"
         style={{
           x: curX,
           y: curY,
           translateX: "-50%",
           translateY: "-50%",
+          skewX,
+          skewY,
+          mixBlendMode: s.blend,
         }}
         animate={{
-          width:        s.outerSize,
-          height:       s.outerSize,
-          opacity:      s.outerOpacity,
-          background:   s.outerBg,
-          border:       s.outerBorder,
-          borderRadius: s.outerBorderRadius,
-          rotate:       s.rotate,
+          width: s.size,
+          height: s.size,
+          background: s.bg,
+          border: s.border,
+          borderRadius: s.radius,
+          opacity: s.opacity,
         }}
         transition={{
-          width:        { type: "spring", stiffness: 300, damping: 24 },
-          height:       { type: "spring", stiffness: 300, damping: 24 },
-          opacity:      { duration: 0.15 },
-          background:   { duration: 0.2 },
-          rotate:       { type: "spring", stiffness: 200, damping: 20 },
+          type: "spring",
+          stiffness: 400,
+          damping: 28,
+          mass: 0.5
         }}
       >
-        {labelText && (
-          <motion.span
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.6 }}
-            className="text-[9px] font-bold tracking-widest text-primary pointer-events-none select-none"
-            style={{
-              rotate: -45,
-            }}
-          >
-            {labelText}
-          </motion.span>
-        )}
+        <AnimatePresence mode="wait">
+          {s.icon && (
+            <motion.div
+              key={cursorState}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {s.icon}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       <ClickRipple curX={curX} curY={curY} />
@@ -286,17 +238,18 @@ const ClickRipple = ({ curX, curY }) => {
       {ripples.map((r) => (
         <motion.div
           key={r.id}
-          className="fixed top-0 left-0 rounded-full pointer-events-none z-[9997] hidden md:block"
+          className="fixed top-0 left-0 rounded-full pointer-events-none z-[9996] hidden md:block"
           style={{
             left: r.x,
             top: r.y,
             translateX: "-50%",
             translateY: "-50%",
-            border: "1.5px solid var(--color-primary, #20b2a6)",
+            border: "1px solid var(--color-primary, #20b2a6)",
+            mixBlendMode: "difference",
           }}
-          initial={{ width: 0, height: 0, opacity: 0.8 }}
-          animate={{ width: 80, height: 80, opacity: 0 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
+          initial={{ width: 0, height: 0, opacity: 1 }}
+          animate={{ width: 100, height: 100, opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         />
       ))}
     </>

@@ -23,7 +23,7 @@ const projects = [
         github: "https://github.com/PrincePrajapatiXi/E-commerce",
         featured: false
     },
-]
+];
 
 export const Projects = () => {
     return (
@@ -57,7 +57,11 @@ export const Projects = () => {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <AnimatedBorderButton>
+                        <AnimatedBorderButton 
+                            href="https://github.com/PrincePrajapatiXi?tab=repositories" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
                             View All Projects
                             <ArrowUpRight className="w-5 h-5 ml-2" />
                         </AnimatedBorderButton>
@@ -138,6 +142,8 @@ export const Projects = () => {
                                 <div className="pt-2">
                                     <a 
                                         href={project.link} 
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all"
                                     >
                                         Explore Project <ArrowUpRight className="w-4 h-4" />
