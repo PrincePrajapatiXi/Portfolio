@@ -1,34 +1,37 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/layout/Navbar";
-import { Hero } from "@/sections/Hero";
-import { About } from "@/sections/About";
-import { Skills } from "@/sections/Skills";
-import { Projects } from "@/sections/Projects";
-import { Experience } from "@/sections/Experience";
-import { Testimonials } from "@/sections/Testimonials";
-import { Contact } from "@/sections/Contact";
+import { Home } from "@/pages/Home";
+import { CaseStudy } from "@/pages/CaseStudy";
 import { Footer } from "@/layout/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
-// import { AIChatbot } from "@/components/AIChatbot"; // Removed as requested
+import { NoiseOverlay } from "./components/NoiseOverlay";
+import { ClickExplosion } from "./components/ClickExplosion";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      <ScrollProgress />
-      <CustomCursor />
-      {/* <AIChatbot /> */}
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Testimonials />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="min-h-screen overflow-x-hidden selection:bg-primary/30 selection:text-white">
+        <NoiseOverlay />
+        <ClickExplosion />
+        <ScrollProgress />
+        <CustomCursor />
+        
+        <Navbar />
+        
+        <main>
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/case-study/:id" element={<CaseStudy />} />
+            </Routes>
+          </AnimatePresence>
+        </main>
+        
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

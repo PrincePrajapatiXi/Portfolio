@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { useRef } from "react";
 import { 
   FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJs, FaGitAlt, FaDatabase 
 } from "react-icons/fa";
@@ -62,23 +63,58 @@ const skillCards = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className={className}
+    >
+      <div style={{ transform: "translateZ(50px)", transformStyle: "preserve-3d" }}>
+        {children}
+      </div>
+    </motion.div>
+  );
 };
 
 export const Skills = () => {
   return (
     <section id="skills" className="py-24 md:py-32 px-6 max-w-7xl mx-auto overflow-hidden">
-      <div className="flex flex-col items-center mb-20">
+      <div className="flex flex-col items-center mb-20 text-center">
         <motion.span
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -92,24 +128,22 @@ export const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-4xl md:text-6xl font-bold text-center tracking-tight"
+          className="text-4xl md:text-6xl font-bold tracking-tight text-white"
         >
           Tech <span className="text-muted-foreground font-serif italic font-normal">Stack</span>
         </motion.h2>
       </div>
 
       <motion.div 
-        variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6"
       >
-        {skillCards.map((card, idx) => (
-          <motion.div
+        {skillCards.map((card) => (
+          <TiltCard
             key={card.title}
-            variants={itemVariants}
-            className={`glass-strong p-8 rounded-[2.5rem] relative overflow-hidden group flex flex-col hover:bg-white/[0.03] transition-colors border-white/5 break-inside-avoid ${card.className.replace(/md:col-span-\d|md:row-span-\d/g, "")}`}
+            className={`glass-strong p-8 rounded-[2.5rem] relative overflow-hidden group flex flex-col hover:bg-white/[0.03] transition-colors border border-white/5 break-inside-avoid ${card.className.replace(/md:col-span-\d|md:row-span-\d/g, "")}`}
           >
             <div className="relative z-10">
               <div className="flex justify-between items-start mb-4">
@@ -125,10 +159,7 @@ export const Skills = () => {
 
             <div className="relative z-10 flex flex-wrap gap-3 mt-4">
               {card.skills.map((skill) => (
-                <div
-                  key={skill.name}
-                  className="group/skill relative"
-                >
+                <div key={skill.name} className="group/skill relative">
                   <div className="p-3 rounded-2xl bg-white/5 border border-white/5 group-hover/skill:bg-primary/10 group-hover/skill:border-primary/20 transition-all duration-300">
                     <skill.icon className={`text-xl ${skill.color} filter drop-shadow-[0_0_8px_rgba(32,178,166,0.3)]`} />
                   </div>
@@ -140,20 +171,18 @@ export const Skills = () => {
             </div>
             
             <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-primary/5 rounded-full blur-[40px] group-hover:bg-primary/10 transition-colors duration-500" />
-          </motion.div>
+          </TiltCard>
         ))}
 
-        {/* Small Stat Card */}
-        <motion.div
-          variants={itemVariants}
-          className="glass-strong p-8 rounded-[2.5rem] bg-gradient-to-br from-primary/20 to-transparent flex flex-col items-center justify-center text-center border-primary/20 relative group break-inside-avoid"
+        <TiltCard
+          className="glass-strong p-8 rounded-[2.5rem] bg-gradient-to-br from-primary/20 to-transparent flex flex-col items-center justify-center text-center border border-primary/20 relative group break-inside-avoid"
         >
           <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <span className="text-primary text-xl font-bold">12</span>
           </div>
           <h4 className="text-sm font-bold text-white mb-1">Projects Built</h4>
           <p className="text-xs text-muted-foreground">Always building...</p>
-        </motion.div>
+        </TiltCard>
       </motion.div>
     </section>
   );

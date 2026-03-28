@@ -1,9 +1,11 @@
 import { ArrowUpRight, Github, ExternalLink, Code2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
+import { Link } from "react-router-dom";
 
 const projects = [
     {
+        id: "1",
         title: "Army SMP",
         description:
             "A comprehensive Minecraft server store platform with rank purchasing, order management, and admin-powered analytics dashboard.",
@@ -14,6 +16,7 @@ const projects = [
         featured: true
     },
     {
+        id: "2",
         title: "Catchy Store",
         description:
             "A feature-rich e-commerce electronics store with product filtering, cart management, and a responsive PWA-optimized shopping experience.",
@@ -52,27 +55,13 @@ export const Projects = () => {
                             Building digital products, <span className="text-muted-foreground font-serif italic font-normal">brands and experience.</span>
                         </motion.h2>
                     </div>
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 }}
-                    >
-                        <AnimatedBorderButton 
-                            href="https://github.com/PrincePrajapatiXi?tab=repositories" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                        >
-                            View All Projects
-                            <ArrowUpRight className="w-5 h-5 ml-2" />
-                        </AnimatedBorderButton>
-                    </motion.div>
                 </div>
 
                 {/* Projects Grid */}
                 <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
                     {projects.map((project, idx) => (
                         <motion.div 
-                            key={idx}
+                            key={project.id}
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: idx * 0.1 }}
@@ -80,7 +69,7 @@ export const Projects = () => {
                             className="group relative flex flex-col"
                         >
                             {/* Project Card */}
-                            <div className="relative aspect-[16/10] rounded-3xl overflow-hidden glass hover:border-primary/50 transition-colors duration-500">
+                            <Link to={`/case-study/${project.id}`} className="relative aspect-[16/10] rounded-3xl overflow-hidden glass hover:border-primary/50 transition-colors duration-500">
                                 <img
                                     src={project.image}
                                     alt={project.title}
@@ -99,35 +88,41 @@ export const Projects = () => {
 
                                 {/* Hover Actions */}
                                 <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-95 group-hover:scale-100">
-                                    <motion.a
+                                    <motion.div
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            window.open(project.link, "_blank");
+                                        }}
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
-                                        href={project.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center hover:bg-primary text-white transition-colors"
+                                        className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center hover:bg-primary text-white transition-colors cursor-pointer"
                                     >
                                         <ExternalLink className="w-6 h-6" />
-                                    </motion.a>
-                                    <motion.a
+                                    </motion.div>
+                                    <motion.div
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            window.open(project.github, "_blank");
+                                        }}
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
-                                        href={project.github}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center hover:bg-primary text-white transition-colors"
+                                        className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center hover:bg-primary text-white transition-colors cursor-pointer"
                                     >
                                         <Github className="w-6 h-6" />
-                                    </motion.a>
+                                    </motion.div>
                                 </div>
-                            </div>
+                            </Link>
 
                             {/* Project Info */}
                             <div className="mt-6 space-y-4 px-2">
                                 <div className="flex justify-between items-start gap-4">
-                                    <h3 className="text-2xl font-bold group-hover:text-primary transition-colors duration-300">
-                                        {project.title}
-                                    </h3>
+                                    <Link to={`/case-study/${project.id}`}>
+                                        <h3 className="text-2xl font-bold group-hover:text-primary transition-colors duration-300">
+                                            {project.title}
+                                        </h3>
+                                    </Link>
                                     <div className="flex gap-2">
                                         {project.tags.slice(0, 3).map((tag, tIdx) => (
                                             <span key={tIdx} className="text-[10px] md:text-xs font-medium text-primary/80 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/20">
@@ -140,14 +135,12 @@ export const Projects = () => {
                                     {project.description}
                                 </p>
                                 <div className="pt-2">
-                                    <a 
-                                        href={project.link} 
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                    <Link 
+                                        to={`/case-study/${project.id}`}
                                         className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all"
                                     >
-                                        Explore Project <ArrowUpRight className="w-4 h-4" />
-                                    </a>
+                                        View Case Study <ArrowUpRight className="w-4 h-4" />
+                                    </Link>
                                 </div>
                             </div>
                         </motion.div>

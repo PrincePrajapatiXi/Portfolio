@@ -46,15 +46,32 @@
 
 @layer components {
   .glass {
-    background-color: color-mix(in srgb, var(--color-surface) 50%, transparent);
-    backdrop-filter: blur(16px);
-    border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+    @apply bg-white/[0.03] backdrop-blur-md border border-white/10 shadow-xl;
   }
 
   .glass-strong {
-    background-color: color-mix(in srgb, var(--color-surface) 80%, transparent);
-    backdrop-filter: blur(24px);
-    border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+    @apply bg-white/[0.08] backdrop-blur-xl border border-white/20 shadow-2xl;
+  }
+
+  .glass-reflection {
+    @apply relative overflow-hidden;
+  }
+
+  .glass-reflection::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(32, 178, 166, 0.4);
+  }
+
+  .text-glow-strong {
+    text-shadow: 0 0 30px rgba(32, 178, 166, 0.6), 0 0 10px rgba(32, 178, 166, 0.8);
+  }
+
+  .section-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-white/5 to-transparent my-16;
   }
 
   .glow-text {
