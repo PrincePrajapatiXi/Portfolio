@@ -10,7 +10,7 @@ import {
 const skillCards = [
   {
     title: "Core Frontend",
-    description: "Building modern, reactive web interfaces.",
+    description: "For building the actual website you see and click.",
     icon: FaReact,
     skills: [
       { name: "React", icon: FaReact, color: "text-[#61DAFB]" },
@@ -22,7 +22,7 @@ const skillCards = [
   },
   {
     title: "Styling & Motion",
-    description: "Creating fluid, beautiful user experiences.",
+    description: "Making things look pretty and move smoothly.",
     icon: SiFramer,
     skills: [
       { name: "Tailwind", icon: SiTailwindcss, color: "text-[#06B6D4]" },
@@ -32,7 +32,7 @@ const skillCards = [
   },
   {
     title: "Backend Core",
-    description: "Scalable server-side logic & APIs.",
+    description: "The behind-the-scenes magic.",
     icon: FaNodeJs,
     skills: [
       { name: "Node.js", icon: FaNodeJs, color: "text-[#339933]" },
@@ -42,7 +42,7 @@ const skillCards = [
   },
   {
     title: "Database",
-    description: "Managing data with precision.",
+    description: "Where I store all the important stuff.",
     icon: SiMongodb,
     skills: [
       { name: "MongoDB", icon: SiMongodb, color: "text-[#47A248]" },
@@ -52,7 +52,7 @@ const skillCards = [
   },
   {
     title: "Tools & Ecosystem",
-    description: "The fuel behind the development process.",
+    description: "The extra tools that help me build faster.",
     skills: [
       { name: "Git", icon: FaGitAlt, color: "text-[#F05032]" },
       { name: "Vite", icon: SiVite, color: "text-[#646CFF]" },
@@ -121,7 +121,7 @@ export const Skills = () => {
           viewport={{ once: true }}
           className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium tracking-wider uppercase mb-4"
         >
-          My Expertise
+          What I Use
         </motion.span>
         <motion.h2
           initial={{ opacity: 0, y: 10 }}

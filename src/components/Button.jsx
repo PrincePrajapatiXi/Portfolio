@@ -6,17 +6,17 @@ export const Button = ({
   ...props
 }) => {
   const baseClasses =
-    "relative inline-flex items-center justify-center overflow-hidden rounded-full font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all duration-300";
-
+    "relative inline-flex items-center justify-center rounded-full font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all duration-300";
+ 
   const sizeClasses = {
     sm: "px-4 py-2 text-sm",
-    default: "px-4 py-2.5 text-[13px] md:h-[52px] md:px-6 md:py-3 md:text-base",
+    default: "px-4 py-3 text-sm md:h-[52px] md:px-6 md:py-3 md:text-base",
     lg: "px-8 py-4 text-lg",
   };
   const classes = `${baseClasses} ${sizeClasses[size]} ${className}`;
   
   const Component = href ? "a" : "button";
-
+ 
   return (
     <Component className={classes} href={href} {...props}>
       <span className="relative flex items-center justify-center gap-2 whitespace-nowrap">

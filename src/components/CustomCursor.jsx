@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, useSpring, useMotionValue, useVelocity, useTransform, AnimatePresence } from "framer-motion";
 import { Eye, ExternalLink, MousePointer2, Move, ArrowUpRight } from "lucide-react";
 
@@ -70,6 +70,32 @@ export const CustomCursor = () => {
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== "undefined" ? (
+      window.innerWidth <= 1024 || 
+      ('ontouchstart' in window) ||
+      (navigator.maxTouchPoints > 0) ||
+      !window.matchMedia("(pointer: fine)").matches
+    ) : false
+  );
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(
+        window.innerWidth <= 1024 || 
+        ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        !window.matchMedia("(pointer: fine)").matches
+      );
+    };
+
+    window.addEventListener("resize", checkMobile);
+    window.addEventListener("touchstart", () => setIsMobile(true), { once: true });
+    
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   // Velocity for stretching effect
   const velX = useVelocity(mouseX);
@@ -95,10 +121,14 @@ export const CustomCursor = () => {
   }, []);
 
   useEffect(() => {
+    if (isMobile) {
+      document.documentElement.style.cursor = ""; 
+      return;
+    }
+
     const handleMove = (e) => {
       const { clientX: x, clientY: y } = e;
       
-      // Magnetic Logic
       const target = document.elementFromPoint(x, y);
       const interactive = target?.closest("button, a, [role='button']");
       
@@ -107,7 +137,6 @@ export const CustomCursor = () => {
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
         
-        // Only snap if close to center
         const dist = Math.hypot(x - centerX, y - centerY);
         if (dist < 80) {
           mouseX.set(centerX);
@@ -144,17 +173,19 @@ export const CustomCursor = () => {
       document.removeEventListener("mouseleave", handleLeave);
       document.documentElement.style.cursor = "";
     };
-  }, [mouseX, mouseY, detectState]);
+  }, [mouseX, mouseY, detectState, isMobile]);
 
   const s = stateStyles[cursorState] || stateStyles.default;
 
+  if (isMobile) return null;
+
   return (
-    <>
+    <div id="custom-cursor-container" className="hidden lg:block">
       {/* Magnetic Element Highlight */}
       {isMagnetic && magneticElement && (
         <motion.div
            layoutId="magnetic-glow"
-           className="fixed top-0 left-0 pointer-events-none z-[9997] rounded-full bg-primary/10 border border-primary/30"
+           className="fixed top-0 left-0 pointer-events-none z-[9997] rounded-full bg-primary/10 border border-primary/30 hidden md:block"
            initial={false}
            animate={{
               x: magneticElement.getBoundingClientRect().left,
@@ -215,15 +246,17 @@ export const CustomCursor = () => {
         </AnimatePresence>
       </motion.div>
 
-      <ClickRipple curX={curX} curY={curY} />
-    </>
+      <ClickRipple curX={curX} curY={curY} isMobile={isMobile} />
+    </div>
   );
 };
 
-const ClickRipple = ({ curX, curY }) => {
+const ClickRipple = ({ curX, curY, isMobile }) => {
   const [ripples, setRipples] = useState([]);
 
   useEffect(() => {
+    if (isMobile) return;
+
     const onDown = () => {
       const id = Date.now();
       setRipples((prev) => [...prev, { id, x: curX.get(), y: curY.get() }]);
@@ -231,7 +264,9 @@ const ClickRipple = ({ curX, curY }) => {
     };
     window.addEventListener("mousedown", onDown);
     return () => window.removeEventListener("mousedown", onDown);
-  }, [curX, curY]);
+  }, [curX, curY, isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <>

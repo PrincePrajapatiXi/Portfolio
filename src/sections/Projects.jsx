@@ -8,7 +8,7 @@ const projects = [
         id: "1",
         title: "Army SMP",
         description:
-            "A comprehensive Minecraft server store platform with rank purchasing, order management, and admin-powered analytics dashboard.",
+            "I built a complete Minecraft server store where players can buy ranks. It has an admin dashboard to track orders easily.",
         image: "/projects/project1.png",
         tags: ["React", "Node.js", "MongoDB", "Express", "Vite", "PWA"],
         link: "https://store.armymsmp.fun",
@@ -19,7 +19,7 @@ const projects = [
         id: "2",
         title: "Catchy Store",
         description:
-            "A feature-rich e-commerce electronics store with product filtering, cart management, and a responsive PWA-optimized shopping experience.",
+            "An e-commerce site for electronics. I learned a lot about adding carts, filtering products, and making it work like an app (PWA).",
         image: "/projects/project2.png",
         tags: ["React", "Vite", "Context API", "PWA", "Tailwind"],
         link: "https://catchystore.vercel.app/",
@@ -44,7 +44,7 @@ export const Projects = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             className="text-primary font-medium tracking-wider uppercase text-sm"
                         >
-                            Selected Works
+                            Stuff I've Built
                         </motion.span>
                         <motion.h2 
                             initial={{ opacity: 0, y: 20 }}
@@ -52,7 +52,7 @@ export const Projects = () => {
                             transition={{ delay: 0.1 }}
                             className="text-4xl md:text-6xl font-bold mt-4"
                         >
-                            Building digital products, <span className="text-muted-foreground font-serif italic font-normal">brands and experience.</span>
+                            Checkout some of my <span className="text-muted-foreground font-serif italic font-normal">favorite projects.</span>
                         </motion.h2>
                     </div>
                 </div>

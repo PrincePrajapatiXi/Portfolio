@@ -1,7 +1,7 @@
 import { Button } from "@/components/Button";
 import { Menu, X, Volume2, VolumeX } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { motion, useSpring } from "framer-motion";
 import { soundManager } from "@/lib/SoundManager";
 
 const Magnetic = ({ children }) => {
@@ -55,10 +55,9 @@ const navLinks = [
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [soundOn, setSoundOn] = useState(false); // Default false for privacy
+  const [soundOn, setSoundOn] = useState(soundManager.enabled);
 
   useEffect(() => {
-    setSoundOn(soundManager.enabled);
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);

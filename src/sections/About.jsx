@@ -5,25 +5,22 @@ const highlights = [
     {
         icon: Code2,
         title: "Clean Code",
-        description:
-            "Writing maintainable, scalable code that stands the test of time.",
+        description: "I try my best to write code that actually makes sense when I read it a month later.",
     },
     {
         icon: Rocket,
-        title: "Performance",
-        description:
-            "Optimizing for speed and delivering lightning-fast user experiences.",
+        title: "Fast & Smooth",
+        description: "Nobody likes slow websites. I focus on making my projects load and run super fast.",
     },
     {
         icon: Users,
-        title: "Collaboration",
-        description: "Working closely with teams to bring ideas to life.",
+        title: "Always Learning",
+        description: "Constantly picking up new tech and figuring things out as I go.",
     },
     {
         icon: Lightbulb,
-        title: "Innovation",
-        description:
-            "Staying ahead with the latest technologies and best practices.",
+        title: "Creative Flair",
+        description: "I love adding cool animations and bits of polish to make projects stand out.",
     },
 ];
 
@@ -62,8 +59,8 @@ export const About = () => {
                     transition={{ delay: 0.1 }}
                     className="text-4xl md:text-6xl font-bold leading-tight mb-12 lg:max-w-[70%]"
                 >
-                    Building the future,
-                    <span className="text-muted-foreground font-serif italic font-normal"> one component at a time.</span>
+                    Building cool things,
+                    <span className="text-muted-foreground font-serif italic font-normal"> and having fun doing it.</span>
                 </motion.h2>
 
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
@@ -77,13 +74,13 @@ export const About = () => {
                     >
                         <div className="space-y-6 text-lg leading-relaxed text-muted-foreground border-l-2 border-primary/30 pl-6">
                             <p>
-                                I'm a <span className="text-white font-medium">passionate web developer</span> dedicated to crafting digital experiences that stand out. My journey started with a deep curiosity for how things work on the web, and it has evolved into a strong focus on <span className="text-white font-medium">modern web technologies</span>.
+                                I'm an 18-year-old student currently surviving 12th grade while secretly spending a lot of my free time <span className="text-white font-medium">writing code</span>. I started learning web development out of pure curiosity, and now I just can't stop building things.
                             </p>
                             <p>
-                                I currently specialize in <span className="text-primary font-semibold">Next.js</span>, <span className="text-primary font-semibold">Node.js</span>, and <span className="text-primary font-semibold">Tailwind CSS</span>. My goal is to combine <span className="text-white font-medium">clean code</span> with an exceptional user experience.
+                                My go-to tech stack right now is <span className="text-primary font-semibold">React (Next.js)</span>, <span className="text-primary font-semibold">Node.js</span>, and <span className="text-primary font-semibold">Tailwind CSS</span>. I really enjoy figuring out how to make websites look awesome and run smoothly without breaking.
                             </p>
                             <p>
-                                When I'm not writing code, you'll find me exploring <span className="text-white font-medium">emerging technologies</span> and continuously refining my problem-solving skills to stay ahead in the ever-evolving tech landscape.
+                                When I'm not doing school assignments or debugging my code, I'm probably scrolling through GitHub, trying out cool new tools, or just brainstorming my next side project.
                             </p>
                         </div>
 
@@ -93,7 +90,7 @@ export const About = () => {
                                 <Rocket size={80} />
                             </div>
                             <p className="text-xl font-medium italic text-white leading-relaxed relative z-10">
-                                "My mission is to create digital experiences that are not just functional, but truly delightful — products that users love to use and developers love to maintain."
+                                "I'm still learning every day, but my goal is simple: build things that look great, work perfectly, and make people go 'wow'."
                             </p>
                         </div>
                     </motion.div>

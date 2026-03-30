@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const testimonials = [
     {
-        quote: "Just took a look at Prince’s updated portfolio and it’s top-tier! The UI is incredibly smooth, and you can tell Prince really cares about the fine details that make a site feel premium. It’s rare to find a developer who balances aesthetics and performance this well. Prince absolutely nailed this—highly recommend checking out his work.",
+        quote: "Prince works really hard on his UI! The site is super smooth and looks amazing. Highly recommend checking out his work.",
         author: "Army of mr random",
         role: "Owner of army smp",
         avatar: "/review1.jpg",
@@ -15,13 +15,13 @@ const testimonials = [
         avatar: "/review2.png",
     },
     {
-        quote: "Prince's expertise in React and TypeScript helped us rebuild our entire frontend in record time. His architectural decisions continue to pay dividends.",
+        quote: "Prince really knows his way around React and TypeScript. He helped us build our frontend super fast and the code is extremely clean!",
         author: "Nukkad gamer",
         role: "Software Engineer, Youtuber",
         avatar: "/review3.JPG",
     },
     {
-        quote: "The portfolio looks serious and better now. Instead of flashy and weird elements it focuses on the key factors and makes the decisions easier. Would really like to try the services.",
+        quote: "The new portfolio looks awesome. It’s clean, fast, and gets straight to the point without any weird flashy stuff. Definitely recommend him!",
         author: "Utsav",
         role: "Front end developer",
         avatar: "/review4.JPG",

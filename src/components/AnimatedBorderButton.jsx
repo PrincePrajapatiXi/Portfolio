@@ -1,4 +1,3 @@
-
 export const AnimatedBorderButton = ({ children, href, onClick, className = "", ...props }) => {
   const Component = href ? "a" : "button";
   
@@ -11,7 +10,7 @@ export const AnimatedBorderButton = ({ children, href, onClick, className = "", 
         duration-1000 focus:outline-none focus-visible:ring-2 
         focus-visible:ring-primary focus-visible:ring-offset-2 
         disabled:opacity-50 disabled:cursor-not-allowed group 
-        px-3 py-2.5 text-[13px] md:h-[52px] md:px-6 md:py-3 md:text-base font-medium rounded-full overflow-visible 
+        px-4 py-3 text-sm md:h-[52px] md:px-6 md:py-3 md:text-base font-medium rounded-full overflow-visible 
         animated-border ${className}`}
       {...props}
     >

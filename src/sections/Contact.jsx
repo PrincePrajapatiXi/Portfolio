@@ -102,12 +102,12 @@ export const Contact = () => {
                     <h2 className="text-3xl md:text-5xl font-bold mt-3 md:mt-4 mb-4 md:mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
                         Let's build{" "}
                         <span className="font-serif italic font-normal text-white">
-                            something great.
+                            something cool.
                         </span>
                     </h2>
                     <p className="text-sm md:text-base text-muted-foreground animate-fade-in animation-delay-200">
-                        Have a project in mind? I'd love to hear about it. Send me a message
-                        and let's discuss how we can work together.
+                        Got a cool project idea or just want to chat? Drop me a message
+                        and I'll get back to you as soon as I can!
                     </p>
                 </div>
 
@@ -237,9 +237,8 @@ export const Contact = () => {
                                 <span className="font-medium">Currently Available</span>
                             </div>
                             <p className="text-muted-foreground text-sm">
-                                I'm currently open to new opportunities and exciting projects.
-                                Whether you need a full-time engineer or a freelance consultant,
-                                let's talk!
+                                I'm always open to teaming up on fun projects or freelance work.
+                                If you need a developer to help out, let's talk!
                             </p>
                         </div>
                     </div>

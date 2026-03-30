@@ -3,7 +3,7 @@ const experiences = [
     period: "2026 — Present",
     role: "Full Stack Developer (Personal Projects)",
     company: "Independent Projects",
-    description: "Developed a full-scale E-commerce platform featuring user authentication and payment integration. Focused on optimizing performance and responsive design.",
+    description: "Built a complete E-commerce site with user logins and payments. Focused on making it fast and mobile-friendly.",
     technologies: ["React", "Node.js", "Firebase", "Tailwind CSS"],
     current: true,
   },
@@ -11,7 +11,7 @@ const experiences = [
     period: "2025 — 2026",
     role: "Open Source Contributor",
     company: "GitHub Community",
-    description: "Contributed to various UI libraries by fixing bugs and improving documentation. Enhanced accessibility for the main navigation components.",
+    description: "Helped out in open-source by fixing bugs and improving the code for some UI libraries.",
     technologies: ["HTML", "CSS", "GitHub"],
     current: false,
   },
@@ -19,7 +19,7 @@ const experiences = [
     period: "2024 — 2026",
     role: "Lead Student Developer",
     company: "S.V.M Inter College",
-    description: "Developed a Task Management Dashboard for the Computer Science curriculum. Integrated drag-and-drop functionality and real-time updates to help students manage their homework efficiently.",
+    description: "Built a task tracker for my school's CS class. Added drag-and-drop features to help students manage their homework easily.",
     technologies: ["JavaScript", "React", "CSS3"],
     current: false,
   },
@@ -27,7 +27,7 @@ const experiences = [
     period: "2024 — Present",
     role: "Self-Taught Web Developer",
     company: "Self-Directed Learning",
-    description: "Mastered web development fundamentals by building 10+ hands-on projects, including weather applications and personal portfolios. Focused on responsive design and modern UI/UX principles.",
+    description: "Learned web dev from scratch by building over 10 different projects, from weather apps to this portfolio.",
     technologies: ["HTML5", "Tailwind CSS", "JavaScript"],
     current: true,
   }
@@ -58,7 +58,7 @@ export const Experience = () => {
             Experience that{" "}
             <span className="font-serif italic font-normal text-white">
               {" "}
-              speaks volumes.
+              shows my journey.
             </span>
           </h2>
 
@@ -66,8 +66,7 @@ export const Experience = () => {
             className="text-sm md:text-base text-muted-foreground
            animate-fade-in animation-delay-200"
           >
-            A timeline of my professional growth, from curious beginner to
-            a skilled developer building products and solving real problems.
+            A timeline of my coding journey, from writing my very first 'Hello World' to building actual full-stack apps.
           </p>
         </div>
 

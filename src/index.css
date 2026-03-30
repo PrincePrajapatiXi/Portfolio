@@ -196,4 +196,11 @@
     box-shadow: 0 0 20px color-mix(in srgb, #26c4b8 20%, transparent);
   }
 
+  /* Hide custom cursor on touch and small screens */
+  @media (pointer: coarse), (max-width: 1024px) {
+    #custom-cursor-container {
+      display: none !important;
+    }
+  }
+
 }
