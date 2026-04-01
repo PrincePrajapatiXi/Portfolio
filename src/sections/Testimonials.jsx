@@ -1,43 +1,32 @@
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const testimonials = [
     {
-        quote: "Prince works really hard on his UI! The site is super smooth and looks amazing. Highly recommend checking out his work.",
-        author: "Army of mr random",
-        role: "Owner of army smp",
-        avatar: "/review1.jpg",
+        quote: "Prince built our landing page from scratch in just 3 days. Clean code, fast delivery, and the design was exactly what we wanted. Highly recommend!",
+        author: "Rahul Sharma",
+        role: "Startup Founder",
+        initials: "RS",
+        colorClass: "bg-blue-600",
     },
     {
-        quote: "Took his services recently. The Developer Prince is really friendly and cooperative willing to help when required. He made the site stunning and feel premium with optimised performance! .Totally recommend for everyone. ✌️",
-        author: "Void",
-        role: "Youtuber",
-        avatar: "/review2.png",
+        quote: "Very professional work. He understood our requirements quickly and delivered a responsive website that our customers love. Will definitely work again.",
+        author: "Priya Verma",
+        role: "Small Business Owner",
+        initials: "PV",
+        colorClass: "bg-emerald-600",
     },
     {
-        quote: "Prince really knows his way around React and TypeScript. He helped us build our frontend super fast and the code is extremely clean!",
-        author: "Nukkad gamer",
-        role: "Software Engineer, Youtuber",
-        avatar: "/review3.JPG",
-    },
-    {
-        quote: "The new portfolio looks awesome. It’s clean, fast, and gets straight to the point without any weird flashy stuff. Definitely recommend him!",
-        author: "Utsav",
-        role: "Front end developer",
-        avatar: "/review4.JPG",
+        quote: "Prince helped me with my project's frontend. His React skills are solid and he explains things clearly. Great collaborator!",
+        author: "Arjun Singh",
+        role: "CS Student, IIT Delhi",
+        initials: "AS",
+        colorClass: "bg-purple-600",
     },
 ];
 
 export const Testimonials = () => {
     const [activeIdx, setActiveIdx] = useState(0);
-
-    // Optimization: Preload all images on mount
-    useEffect(() => {
-        testimonials.forEach((testimonial) => {
-            const img = new Image();
-            img.src = testimonial.avatar;
-        });
-    }, []);
 
     const next = () => {
         setActiveIdx((prev) => (prev + 1) % testimonials.length);
@@ -87,13 +76,12 @@ export const Testimonials = () => {
                             </blockquote>
 
                             <div className="flex items-center gap-4">
-                                <img
-                                    key={testimonials[activeIdx].avatar} // Important for re-rendering animation
-                                    src={testimonials[activeIdx].avatar}
-                                    alt={testimonials[activeIdx].author}
-                                    className="w-10 h-10 md:w-14 md:h-14 rounded-full object-cover ring-2 ring-blue-500/20"
-                                    loading="eager" 
-                                />
+                                <div
+                                    key={testimonials[activeIdx].initials} // Important for re-rendering animation
+                                    className={`w-10 h-10 md:w-14 md:h-14 flex items-center justify-center rounded-full text-white font-bold text-sm md:text-lg ring-2 ring-white/10 ${testimonials[activeIdx].colorClass}`}
+                                >
+                                    {testimonials[activeIdx].initials}
+                                </div>
                                 <div>
                                     <div className="text-sm md:text-base font-semibold">
                                         {testimonials[activeIdx].author}

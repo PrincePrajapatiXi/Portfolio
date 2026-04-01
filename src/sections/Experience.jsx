@@ -1,34 +1,26 @@
 const experiences = [
   {
     period: "2026 — Present",
-    role: "Full Stack Developer (Personal Projects)",
-    company: "Independent Projects",
-    description: "Built a complete E-commerce site with user logins and payments. Focused on making it fast and mobile-friendly.",
-    technologies: ["React", "Node.js", "Firebase", "Tailwind CSS"],
+    role: "Full Stack Developer",
+    company: "Personal Projects",
+    description: "Built complete e-commerce site with user authentication (Clerk), product filtering, cart system, and payment gateway integration. Deployed on Vercel.",
+    technologies: ["React", "Node.js", "Tailwind CSS", "Vercel", "Clerk"],
     current: true,
-  },
-  {
-    period: "2025 — 2026",
-    role: "Open Source Contributor",
-    company: "GitHub Community",
-    description: "Helped out in open-source by fixing bugs and improving the code for some UI libraries.",
-    technologies: ["HTML", "CSS", "GitHub"],
-    current: false,
   },
   {
     period: "2024 — 2026",
     role: "Lead Student Developer",
     company: "S.V.M Inter College",
-    description: "Built a task tracker for my school's CS class. Added drag-and-drop features to help students manage their homework easily.",
-    technologies: ["JavaScript", "React", "CSS3"],
+    description: "Built a drag-and-drop task tracker for the CS class used by students for homework management.",
+    technologies: ["JavaScript", "React", "Tailwind CSS"],
     current: false,
   },
   {
     period: "2024 — Present",
     role: "Self-Taught Web Developer",
     company: "Self-Directed Learning",
-    description: "Learned web dev from scratch by building over 10 different projects, from weather apps to this portfolio.",
-    technologies: ["HTML5", "Tailwind CSS", "JavaScript"],
+    description: "Built 12+ projects from scratch including a Minecraft server store (Army SMP), an e-commerce site (Catchy Store), a Genshin Impact companion app (AkashaLog), and an AI weather app (AETHER). Self-directed learning through building real projects.",
+    technologies: ["React", "JavaScript", "Tailwind CSS", "Node.js"],
     current: true,
   }
 ];

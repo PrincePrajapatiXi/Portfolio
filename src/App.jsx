@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/layout/Navbar";
 import { Home } from "@/pages/Home";
-import { CaseStudy } from "@/pages/CaseStudy";
 import { Footer } from "@/layout/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
@@ -24,7 +23,6 @@ function App() {
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/case-study/:id" element={<CaseStudy />} />
             </Routes>
           </AnimatePresence>
         </main>

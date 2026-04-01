@@ -20,8 +20,8 @@ const contactInfo = [
     {
         icon: Phone,
         label: "Phone",
-        value: "+91 1234567890",
-        href: "tel:+911234567890",
+        value: "Not publicly listed",
+        href: "#",
     },
     {
         icon: MapPin,

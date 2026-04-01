@@ -1,12 +1,51 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { ArrowRight, Download, Github, Instagram, ChevronDown } from "lucide-react";
 import { Button } from "@/components/Button";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
+import { Magnetic } from "@/components/Magnetic";
 import { useRef } from "react";
 
 const skills = [
     "React", "Node.js", "MongoDB", "Express", "Tailwind CSS", "JavaScript", "TypeScript", "Vite", "Git", "Framer Motion"
 ];
+
+const TiltCard = ({ children, className }) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseXSpring = useSpring(x, { stiffness: 400, damping: 30 });
+    const mouseYSpring = useSpring(y, { stiffness: 400, damping: 30 });
+
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        x.set(mouseX / width - 0.5);
+        y.set(mouseY / height - 0.5);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+            className={className}
+        >
+            {children}
+            <div style={{ transform: "translateZ(50px)" }} className="absolute inset-0 pointer-events-none" />
+        </motion.div>
+    );
+};
 
 export const Hero = () => {
     const containerRef = useRef(null);
@@ -48,13 +87,16 @@ export const Hero = () => {
         <section ref={containerRef} id="home" className="relative min-h-screen lg:min-h-[110vh] flex items-center justify-center overflow-hidden pt-20">
             {/* Background Parallax Layer */}
             <motion.div style={{ y: yBg }} className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+                {/* Premium Grid Overlay */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-50" />
+                
                 {/* Spline 3D Object - Abstract Morphing Sphere */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.25] blur-[15px] scale-110">
                     <spline-viewer url="https://prod.spline.design/Is7NfV87X21N0OOf/scene.splinecode" />
                 </div>
 
-                <div className="absolute top-[15%] left-[10%] w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] animate-pulse" />
-                <div className="absolute bottom-[20%] right-[5%] w-[500px] h-[500px] bg-highlight/5 rounded-full blur-[120px]" />
+                <div className="absolute top-[10%] left-[10%] w-[600px] h-[600px] bg-primary/15 rounded-full blur-[150px] animate-[pulse_6s_ease-in-out_infinite]" />
+                <div className="absolute bottom-[20%] right-[5%] w-[500px] h-[500px] bg-highlight/10 rounded-full blur-[120px] animate-[pulse_8s_ease-in-out_infinite_reverse]" />
             </motion.div>
 
             {/* Content Layer */}
@@ -78,7 +120,14 @@ export const Hero = () => {
 
                         <motion.div variants={itemVariants} className="space-y-4 lg:space-y-6">
                             <h1 className="text-3xl md:text-8xl font-bold tracking-tight leading-[1.05]">
-                                Building <span className="text-primary italic font-serif font-normal text-glow-strong">Awesome</span>
+                                Building{" "}
+                                <motion.span
+                                    animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                                    className="text-transparent bg-clip-text bg-[linear-gradient(90deg,var(--primary),#00f0ff,var(--primary))] bg-[length:200%_auto] italic font-serif font-normal text-glow-strong inline-block"
+                                >
+                                    Awesome
+                                </motion.span>
                                 <br />
                                 Websites<span className="text-primary">.</span>
                             </h1>
@@ -90,12 +139,19 @@ export const Hero = () => {
 
                         {/* Buttons — desktop only (mobile buttons rendered below grid) */}
                         <motion.div variants={itemVariants} className="hidden lg:flex items-center gap-5">
-                            <Button href="#contact" className="h-14 px-10 text-lg group">
-                                Let's Talk <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </Button>
-                            <AnimatedBorderButton href="/resume.pdf" target="_blank" className="h-14 px-8 text-base">
-                                <Download className="mr-2 w-5 h-5" /> Download CV
-                            </AnimatedBorderButton>
+                            <Magnetic padding={40} intensity={0.15}>
+                                <Button href="#contact" className="h-14 px-10 text-lg group relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover:translate-y-[0%] transition-transform duration-500 ease-out z-0" />
+                                    <span className="relative z-10 flex items-center">
+                                        Let's Talk <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    </span>
+                                </Button>
+                            </Magnetic>
+                            <Magnetic padding={40} intensity={0.15}>
+                                <AnimatedBorderButton href="/resume.pdf" target="_blank" className="h-14 px-8 text-base group">
+                                    <Download className="mr-2 w-5 h-5 group-hover:-translate-y-1 transition-transform" /> Download CV
+                                </AnimatedBorderButton>
+                            </Magnetic>
                         </motion.div>
 
                         {/* Social Links & Connect */}
@@ -128,23 +184,36 @@ export const Hero = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                         className="relative opacity-100 z-10 pointer-events-auto flex justify-end items-start lg:pr-10 col-span-1 h-full"
                     >
-                        {/* Main Image Card */}
-                        <div className="relative z-10 w-[160px] lg:w-[420px] rounded-[1.5rem] lg:rounded-[4rem] overflow-hidden border border-white/10 glass-reflection shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] group mt-2 lg:mt-0">
+                        {/* Main Image Card with 3D Tilt */}
+                        <TiltCard className="relative z-10 w-[160px] lg:w-[420px] rounded-[1.5rem] lg:rounded-[4rem] overflow-hidden border border-white/10 glass-reflection shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] group mt-2 lg:mt-0">
                             <img
                                 src="/profile-photo.jpg"
                                 alt="Prince"
-                                className="w-full h-[210px] lg:h-[680px] object-cover transition-transform duration-[2s] group-hover:scale-110"
+                                className="w-full h-[210px] lg:h-[680px] object-cover transition-transform duration-500 group-hover:scale-110"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60 pointer-events-none" />
 
                             {/* Full-Stack Dev badge */}
-                            <div className="absolute bottom-2 left-2 lg:bottom-10 lg:left-5 p-2 lg:p-5 glass-strong rounded-xl lg:rounded-[2rem] border border-white/10 backdrop-blur-2xl scale-[0.6] lg:scale-100 origin-bottom-left">
+                            <div style={{ transform: "translateZ(30px)" }} className="absolute bottom-2 left-2 lg:bottom-10 lg:left-5 p-2 lg:p-5 glass-strong rounded-xl lg:rounded-[2rem] border border-white/10 backdrop-blur-2xl scale-[0.6] lg:scale-100 origin-bottom-left transition-transform duration-500 hover:scale-[1.05]">
                                 <div className="flex items-center gap-2 lg:gap-3">
                                     <div className="w-2 h-2 lg:w-3 lg:h-2.5 rounded-full bg-green-500 animate-pulse" />
-                                    <span className="text-[10px] font-black tracking-[0.2em] uppercase">Full-Stack Dev</span>
+                                    <span className="text-[10px] font-black tracking-[0.2em] uppercase text-white drop-shadow-md">Full-Stack Dev</span>
                                 </div>
                             </div>
-                        </div>
+                        </TiltCard>
+
+                        {/* Experience badge — hidden on mobile */}
+                        <motion.div
+                            initial={{ x: -30, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ delay: 1.2 }}
+                            className="hidden lg:block absolute top-8 left-55 z-20"
+                        >
+                            <div className="glass px-5 py-2.5 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-3xl">
+                                <div className="text-[9px] font-black text-primary uppercase tracking-[0.2em]">Proudly</div>
+                                <div className="text-xs font-bold whitespace-nowrap">Self-Taught</div>
+                            </div>
+                        </motion.div>
 
                         {/* "Based In" badge — hidden on mobile */}
                         <motion.div
