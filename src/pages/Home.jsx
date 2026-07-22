@@ -3,7 +3,9 @@ import { About } from "@/sections/About";
 import { Skills } from "@/sections/Skills";
 import { Projects } from "@/sections/Projects";
 import { Experience } from "@/sections/Experience";
-import { Testimonials } from "@/sections/Testimonials";
+import { GitHubStats } from "@/sections/GitHubStats";
+import { Achievements } from "@/sections/Achievements";
+import { Blog } from "@/sections/Blog";
 import { Contact } from "@/sections/Contact";
 import { motion } from "framer-motion";
 
@@ -20,7 +22,9 @@ export const Home = () => {
       <Skills />
       <Projects />
       <Experience />
-      <Testimonials />
+      <GitHubStats />
+      <Achievements />
+      <Blog />
       <Contact />
     </motion.div>
   );

@@ -1,8 +1,9 @@
 import { Button } from "@/components/Button";
-import { Menu, X, Volume2, VolumeX } from "lucide-react";
+import { Menu, X, Volume2, VolumeX, Sun, Moon } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
-import { motion, useSpring } from "framer-motion";
+import { motion, useSpring, AnimatePresence } from "framer-motion";
 import { soundManager } from "@/lib/SoundManager";
+import { useTheme } from "@/components/ThemeProvider";
 
 const Magnetic = ({ children }) => {
   const ref = useRef(null);
@@ -49,13 +50,17 @@ const navLinks = [
   { href: "#about", label: "About" },
   { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
-  { href: "#testimonials", label: "Testimonials" },
+  { href: "#github", label: "GitHub" },
 ];
+
+const sectionIds = ["home", "about", "skills", "projects", "experience", "github", "achievements", "blog", "contact"];
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [soundOn, setSoundOn] = useState(soundManager.enabled);
+  const [activeSection, setActiveSection] = useState("home");
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -63,10 +68,40 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Active section detection via IntersectionObserver
+  useEffect(() => {
+    const observers = [];
+    
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          });
+        },
+        { threshold: 0.3, rootMargin: "-80px 0px -50% 0px" }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((obs) => obs.disconnect());
+  }, []);
+
   const toggleSound = () => {
     const newState = soundManager.toggle();
     setSoundOn(newState);
-    if (newState) soundManager.play("click");
+  };
+
+  const isActive = (href) => {
+    const sectionId = href.replace("#", "");
+    return activeSection === sectionId;
   };
 
   return (
@@ -95,7 +130,11 @@ export const Navbar = () => {
               <Magnetic key={index}>
                 <a
                   href={link.href}
-                  className="px-5 py-2 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary rounded-full hover:bg-white/5 transition-all"
+                  className={`px-5 py-2 text-xs font-bold uppercase tracking-widest rounded-full transition-all ${
+                    isActive(link.href)
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-primary hover:bg-white/5"
+                  }`}
                 >
                   {link.label}
                 </a>
@@ -106,9 +145,30 @@ export const Navbar = () => {
 
         {/* Right: Actions */}
         <div className="flex-1 flex justify-end items-center gap-4">
-          <div className="hidden md:flex items-center gap-4">
-             <div className="w-px h-6 bg-white/10 mx-2" />
+          <div className="hidden md:flex items-center gap-3">
+             <div className="w-px h-6 bg-white/10 mx-1" />
              
+             {/* Theme Toggle */}
+             <Magnetic>
+               <button
+                 onClick={toggleTheme}
+                 className="p-2.5 rounded-full bg-white/5 border border-white/10 hover:border-primary/30 transition-all duration-300"
+                 aria-label="Toggle theme"
+               >
+                 <AnimatePresence mode="wait">
+                   {theme === "dark" ? (
+                     <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                       <Sun size={16} className="text-yellow-400" />
+                     </motion.div>
+                   ) : (
+                     <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                       <Moon size={16} className="text-blue-400" />
+                     </motion.div>
+                   )}
+                 </AnimatePresence>
+               </button>
+             </Magnetic>
+
              {/* Sound Toggle */}
              <Magnetic>
                <button
@@ -127,7 +187,10 @@ export const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
-             <button onClick={toggleSound} className="p-2 text-muted-foreground hover:text-primary transition-colors">
+             <button onClick={toggleTheme} className="p-2 text-muted-foreground hover:text-primary transition-colors" aria-label="Toggle theme">
+                {theme === "dark" ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-blue-400" />}
+             </button>
+             <button onClick={toggleSound} className="p-2 text-muted-foreground hover:text-primary transition-colors" aria-label="Toggle sound">
                 {soundOn ? <Volume2 size={20} /> : <VolumeX size={20} />}
              </button>
              <button
@@ -136,6 +199,7 @@ export const Navbar = () => {
                   setIsMobileMenuOpen((prev) => !prev);
                   if (soundOn) soundManager.play("transition");
                }}
+               aria-label="Toggle menu"
              >
                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
              </button>
@@ -143,30 +207,43 @@ export const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden glass-strong animate-fade-in h-[100vh]">
-          <div className="container mx-auto px-6 py-12 flex flex-col gap-6 items-center">
-            {navLinks.map((link, index) => (
-              <a
-                href={link.href}
-                key={index}
-                onClick={() => {
-                   setIsMobileMenuOpen(false);
-                   if (soundOn) soundManager.play("click");
-                }}
-                onMouseEnter={() => { if (soundOn) soundManager.play("hover"); }}
-                className="text-2xl font-medium text-muted-foreground hover:text-primary py-2 transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            <Button href="#contact" onClick={() => setIsMobileMenuOpen(false)} size="lg" className="w-full mt-4">
-              Contact Me
-            </Button>
-          </div>
-        </div>
-      )}
+      {/* Mobile Menu — Animated */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden glass-strong h-[100vh]"
+          >
+            <div className="container mx-auto px-6 py-12 flex flex-col gap-6 items-center">
+              {navLinks.map((link, index) => (
+                <motion.a
+                  href={link.href}
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.08 }}
+                  onClick={() => {
+                     setIsMobileMenuOpen(false);
+                     if (soundOn) soundManager.play("click");
+                  }}
+                  onMouseEnter={() => { if (soundOn) soundManager.play("hover"); }}
+                  className={`text-2xl font-medium py-2 transition-colors ${
+                    isActive(link.href) ? "text-primary" : "text-muted-foreground hover:text-primary"
+                  }`}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+              <Button href="#contact" onClick={() => setIsMobileMenuOpen(false)} size="lg" className="w-full mt-4">
+                Contact Me
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
-};
+};

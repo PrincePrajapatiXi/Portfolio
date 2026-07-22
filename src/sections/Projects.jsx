@@ -1,6 +1,6 @@
-import { ArrowUpRight, Github, ExternalLink, Code2 } from "lucide-react";
+import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
-import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
+import { useState } from "react";
 
 const projects = [
     {
@@ -12,7 +12,8 @@ const projects = [
         tags: ["React", "Node.js", "MongoDB", "Express", "Vite", "PWA"],
         link: "https://store.armysmp.fun",
         github: "https://github.com/PrincePrajapatiXi/Army-SMP-2",
-        featured: true
+        featured: true,
+        category: "Full-Stack",
     },
     {
         id: "2",
@@ -23,11 +24,68 @@ const projects = [
         tags: ["React", "Vite", "Context API", "PWA", "Tailwind"],
         link: "https://catchystore.vercel.app/",
         github: "https://github.com/PrincePrajapatiXi/E-commerce",
-        featured: false
-    }
+        featured: false,
+        category: "Frontend",
+    },
+    {
+        id: "3",
+        title: "AkashaLog",
+        description:
+            "A Genshin Impact companion app for tracking game progress, character builds, and daily tasks. Built with a clean, modern UI.",
+        image: "/projects/project1.png",
+        tags: ["React", "Node.js", "MongoDB", "Tailwind"],
+        link: null,
+        github: "https://github.com/PrincePrajapatiXi",
+        featured: false,
+        category: "Full-Stack",
+    },
+    {
+        id: "4",
+        title: "AETHER Weather",
+        description:
+            "An AI-powered weather application with beautiful visuals, real-time data, and smart recommendations based on weather conditions.",
+        image: "/projects/project2.png",
+        tags: ["React", "API", "Tailwind", "AI"],
+        link: null,
+        github: "https://github.com/PrincePrajapatiXi",
+        featured: false,
+        category: "Frontend",
+    },
+    {
+        id: "5",
+        title: "Task Tracker Pro",
+        description:
+            "A drag-and-drop task management app built for the CS class. Students use it to manage homework and project deadlines.",
+        image: "/projects/project1.png",
+        tags: ["React", "JavaScript", "Tailwind", "DnD"],
+        link: null,
+        github: "https://github.com/PrincePrajapatiXi",
+        featured: false,
+        category: "Frontend",
+    },
+    {
+        id: "6",
+        title: "Portfolio Website",
+        description:
+            "This very portfolio — built with React 19, Tailwind CSS v4, Framer Motion, and Vite. Features custom cursor, theme toggle, and more.",
+        image: "/projects/project2.png",
+        tags: ["React", "Tailwind v4", "Framer Motion", "Vite"],
+        link: "https://portfolio.armysmp.fun",
+        github: "https://github.com/PrincePrajapatiXi/Portfolio",
+        featured: false,
+        category: "Frontend",
+    },
 ];
 
+const categories = ["All", "Full-Stack", "Frontend"];
+
 export const Projects = () => {
+    const [activeFilter, setActiveFilter] = useState("All");
+
+    const filteredProjects = activeFilter === "All"
+        ? projects
+        : projects.filter((p) => p.category === activeFilter);
+
     return (
         <section id="projects" className="py-12 md:py-20 lg:py-32 relative overflow-hidden">
             {/* Bg glows */}
@@ -42,6 +100,7 @@ export const Projects = () => {
                         <motion.span
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
                             className="text-primary font-medium tracking-wider uppercase text-xs md:text-sm"
                         >
                             Stuff I've Built
@@ -49,6 +108,7 @@ export const Projects = () => {
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
                             className="text-2xl md:text-4xl lg:text-6xl font-bold mt-2 md:mt-4"
                         >
@@ -57,15 +117,38 @@ export const Projects = () => {
                     </div>
                 </div>
 
+                {/* Filter Buttons */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="flex items-center gap-2 md:gap-3 mb-8 md:mb-12 flex-wrap"
+                >
+                    {categories.map((cat) => (
+                        <button
+                            key={cat}
+                            onClick={() => setActiveFilter(cat)}
+                            className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 border ${
+                                activeFilter === cat
+                                    ? "bg-primary text-white border-primary shadow-lg shadow-primary/25"
+                                    : "bg-white/5 text-muted-foreground border-white/10 hover:border-primary/30 hover:text-primary"
+                            }`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </motion.div>
+
                 {/* ── MOBILE layout: single column, compact cards ── */}
                 <div className="flex flex-col gap-5 md:hidden">
-                    {projects.map((project, idx) => (
+                    {filteredProjects.map((project, idx) => (
                         <motion.div
                             key={project.id}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: idx * 0.1 }}
                             viewport={{ once: true }}
+                            layout
                             className="group glass rounded-2xl overflow-hidden border border-white/5"
                         >
                             {/* Image — compact height */}
@@ -73,6 +156,7 @@ export const Projects = () => {
                                 <img
                                     src={project.image}
                                     alt={project.title}
+                                    loading="lazy"
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
@@ -132,26 +216,37 @@ export const Projects = () => {
                                 <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2">
                                     {project.description}
                                 </p>
-                                <a
-                                    href={project.github} target="_blank" rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-xs font-semibold text-primary pt-1"
-                                >
-                                    View on GitHub <ArrowUpRight className="w-3 h-3" />
-                                </a>
+                                <div className="flex items-center gap-3 pt-1">
+                                    <a
+                                        href={project.github} target="_blank" rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary"
+                                    >
+                                        GitHub <ArrowUpRight className="w-3 h-3" />
+                                    </a>
+                                    {project.link && (
+                                        <a
+                                            href={project.link} target="_blank" rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors"
+                                        >
+                                            Live Demo <ExternalLink className="w-3 h-3" />
+                                        </a>
+                                    )}
+                                </div>
                             </div>
                         </motion.div>
                     ))}
                 </div>
 
-                {/* ── DESKTOP layout: original 2-col grid ── */}
+                {/* ── DESKTOP layout: 2-col grid ── */}
                 <div className="hidden md:grid md:grid-cols-2 gap-8 lg:gap-12">
-                    {projects.map((project, idx) => (
+                    {filteredProjects.map((project, idx) => (
                         <motion.div
                             key={project.id}
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: idx * 0.1 }}
                             viewport={{ once: true }}
+                            layout
                             className="group relative flex flex-col"
                         >
                             {/* Project Card */}
@@ -159,6 +254,7 @@ export const Projects = () => {
                                 <img
                                     src={project.image}
                                     alt={project.title}
+                                    loading="lazy"
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
@@ -207,7 +303,7 @@ export const Projects = () => {
                                             {project.title}
                                         </h3>
                                     </a>
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2 flex-wrap justify-end">
                                         {project.tags.slice(0, 3).map((tag, tIdx) => (
                                             <span key={tIdx} className="text-[10px] md:text-xs font-medium text-primary/80 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/20">
                                                 {tag}
@@ -218,13 +314,21 @@ export const Projects = () => {
                                 <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
                                     {project.description}
                                 </p>
-                                <div className="pt-2">
+                                <div className="pt-2 flex items-center gap-4">
                                     <a
                                         href={project.github} target="_blank" rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all"
                                     >
                                         View on GitHub <ArrowUpRight className="w-4 h-4" />
                                     </a>
+                                    {project.link && (
+                                        <a
+                                            href={project.link} target="_blank" rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
+                                        >
+                                            Live Demo <ExternalLink className="w-4 h-4" />
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>

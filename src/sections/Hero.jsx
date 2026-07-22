@@ -1,13 +1,16 @@
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import { ArrowRight, Download, Github, Instagram, ChevronDown } from "lucide-react";
+import { ArrowRight, Download, Github, Instagram, Linkedin, ChevronDown } from "lucide-react";
 import { Button } from "@/components/Button";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 import { Magnetic } from "@/components/Magnetic";
+import { Typewriter } from "@/components/Typewriter";
 import { useRef } from "react";
 
 const skills = [
     "React", "Node.js", "MongoDB", "Express", "Tailwind CSS", "JavaScript", "TypeScript", "Vite", "Git", "Framer Motion"
 ];
+
+const typewriterWords = ["Awesome Websites", "Web Applications", "Digital Experiences", "Cool Projects"];
 
 const TiltCard = ({ children, className }) => {
     const x = useMotionValue(0);
@@ -47,6 +50,21 @@ const TiltCard = ({ children, className }) => {
     );
 };
 
+// Floating Particle component for background
+const FloatingParticle = ({ delay = 0, size = 4, x = "50%", y = "50%", duration = 8 }) => (
+    <motion.div
+        className="absolute rounded-full bg-primary/20"
+        style={{ width: size, height: size, left: x, top: y }}
+        animate={{
+            y: [0, -30, 10, -20, 0],
+            x: [0, 15, -10, 20, 0],
+            opacity: [0.2, 0.6, 0.3, 0.5, 0.2],
+            scale: [1, 1.2, 0.8, 1.1, 1],
+        }}
+        transition={{ duration, delay, repeat: Infinity, ease: "easeInOut" }}
+    />
+);
+
 export const Hero = () => {
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -83,17 +101,48 @@ export const Hero = () => {
         },
     };
 
+    // Letter animation for "Building"
+    const letterVariants = {
+        hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
+        visible: (i) => ({
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            transition: {
+                delay: 0.4 + i * 0.04,
+                duration: 0.6,
+                ease: [0.16, 1, 0.3, 1],
+            },
+        }),
+    };
+
     return (
         <section ref={containerRef} id="home" className="relative min-h-screen lg:min-h-[110vh] flex items-center justify-center overflow-hidden pt-20">
-            {/* Background Parallax Layer */}
+            {/* Animated Background Layer (replaces Spline 3D) */}
             <motion.div style={{ y: yBg }} className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 {/* Premium Grid Overlay */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-50" />
                 
-                {/* Spline 3D Object - Abstract Morphing Sphere */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.25] blur-[15px] scale-110">
-                    <spline-viewer url="https://prod.spline.design/Is7NfV87X21N0OOf/scene.splinecode" />
+                {/* Animated gradient mesh background */}
+                <div className="absolute inset-0">
+                    <motion.div
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-20"
+                    >
+                        <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent,var(--color-primary),transparent,var(--color-highlight),transparent)] rounded-full blur-[80px]" />
+                    </motion.div>
                 </div>
+
+                {/* Floating particles */}
+                <FloatingParticle x="15%" y="20%" size={6} delay={0} duration={10} />
+                <FloatingParticle x="80%" y="15%" size={4} delay={1} duration={8} />
+                <FloatingParticle x="25%" y="70%" size={5} delay={2} duration={12} />
+                <FloatingParticle x="70%" y="60%" size={3} delay={0.5} duration={9} />
+                <FloatingParticle x="45%" y="30%" size={7} delay={1.5} duration={11} />
+                <FloatingParticle x="90%" y="45%" size={4} delay={3} duration={7} />
+                <FloatingParticle x="10%" y="50%" size={5} delay={2.5} duration={10} />
+                <FloatingParticle x="60%" y="80%" size={3} delay={1} duration={8} />
 
                 <div className="absolute top-[10%] left-[10%] w-[600px] h-[600px] bg-primary/15 rounded-full blur-[150px] animate-[pulse_6s_ease-in-out_infinite]" />
                 <div className="absolute bottom-[20%] right-[5%] w-[500px] h-[500px] bg-highlight/10 rounded-full blur-[120px] animate-[pulse_8s_ease-in-out_infinite_reverse]" />
@@ -115,21 +164,33 @@ export const Hero = () => {
                     >
                         <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 glass-reflection transform scale-90 origin-left lg:scale-100">
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                            <span className="text-[10px] lg:text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground whitespace-nowrap">Available</span>
+                            <span className="text-[10px] lg:text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground whitespace-nowrap">Available for work</span>
                         </motion.div>
 
                         <motion.div variants={itemVariants} className="space-y-4 lg:space-y-6">
                             <h1 className="text-3xl md:text-8xl font-bold tracking-tight leading-[1.05]">
-                                Building{" "}
+                                {/* Letter-by-letter "Building" */}
+                                {"Building".split("").map((letter, i) => (
+                                    <motion.span
+                                        key={i}
+                                        custom={i}
+                                        variants={letterVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        className="inline-block"
+                                    >
+                                        {letter}
+                                    </motion.span>
+                                ))}{" "}
+                                <br className="hidden md:block" />
                                 <motion.span
                                     animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                                     transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                                    className="text-transparent bg-clip-text bg-[linear-gradient(90deg,var(--primary),#00f0ff,var(--primary))] bg-[length:200%_auto] italic font-serif font-normal text-glow-strong inline-block"
+                                    className="text-transparent bg-clip-text bg-[linear-gradient(90deg,var(--color-primary),#00f0ff,var(--color-primary))] bg-[length:200%_auto] italic font-serif font-normal text-glow-strong inline-block"
                                 >
-                                    Awesome
+                                    <Typewriter words={typewriterWords} typingSpeed={70} deletingSpeed={35} pauseTime={2500} />
                                 </motion.span>
-                                <br />
-                                Websites<span className="text-primary">.</span>
+                                <span className="text-primary">.</span>
                             </h1>
                             <p className="text-xs md:text-xl text-muted-foreground max-w-[200px] lg:max-w-lg leading-relaxed">
                                 Hey! I'm <span className="text-foreground font-bold">Prince</span>. I'm an 18-year-old student in 12th grade who loves coding and building
@@ -161,6 +222,7 @@ export const Hero = () => {
                                 {[
                                     { icon: Github, href: "https://github.com/PrincePrajapatiXi" },
                                     { icon: Instagram, href: "https://www.instagram.com/prince_developer_/" },
+                                    { icon: Linkedin, href: "https://linkedin.com/in/princeprajapati" },
                                 ].map((social, i) => (
                                     <motion.a
                                         key={i}
@@ -188,7 +250,8 @@ export const Hero = () => {
                         <TiltCard className="relative z-10 w-[160px] lg:w-[420px] rounded-[1.5rem] lg:rounded-[4rem] overflow-hidden border border-white/10 glass-reflection shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] group mt-2 lg:mt-0">
                             <img
                                 src="/profile-photo.jpg"
-                                alt="Prince"
+                                alt="Prince Prajapati — Full-Stack Web Developer"
+                                loading="eager"
                                 className="w-full h-[210px] lg:h-[680px] object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60 pointer-events-none" />

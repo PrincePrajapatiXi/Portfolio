@@ -1,66 +1,30 @@
+/**
+ * SoundManager — Uses Web Audio API for procedural sounds.
+ * No external CDN dependencies. Works fully offline.
+ */
 class SoundManager {
     constructor() {
         this.enabled = localStorage.getItem("sound-enabled") === "true";
         this.volume = parseFloat(localStorage.getItem("sound-volume") || "0.15");
-        this._initialized = false;
-
-        // Better, more satisfying sound effects
-        this.sounds = {
-            // UI interactions
-            hover:      this._make("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"),
-            click:      this._make("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"),
-            transition: this._make("https://assets.mixkit.co/active_storage/sfx/2569/2569-preview.mp3"),
-
-            // Extra feedback sounds
-            success:    this._make("https://assets.mixkit.co/active_storage/sfx/2578/2578-preview.mp3"),  // form submit, copy
-            error:      this._make("https://assets.mixkit.co/active_storage/sfx/2572/2572-preview.mp3"),  // validation fail
-            pop:        this._make("https://assets.mixkit.co/active_storage/sfx/2576/2576-preview.mp3"),  // modal open
-            whoosh:     this._make("https://assets.mixkit.co/active_storage/sfx/2580/2580-preview.mp3"),  // page scroll
-            toggle:     this._make("https://assets.mixkit.co/active_storage/sfx/2575/2575-preview.mp3"),  // toggle on/off
-        };
-
-        // Per-sound volume overrides
-        this._volumes = {
-            hover:      0.08,   // subtle
-            click:      0.18,
-            transition: 0.12,
-            success:    0.25,
-            error:      0.20,
-            pop:        0.15,
-            whoosh:     0.10,
-            toggle:     0.20,
-        };
-
-        // Cooldown map — prevents rapid-fire same sound spam
+        this._ctx = null;
         this._lastPlayed = {};
         this._cooldowns = {
-            hover:  80,   // ms
-            click:  50,
-            whoosh: 300,
+            hover: 80,
+            click: 50,
+            transition: 300,
             toggle: 200,
+            success: 200,
         };
-
-        // Preload on first user interaction (browser policy)
-        window.addEventListener("click", () => this._init(), { once: true });
-        window.addEventListener("keydown", () => this._init(), { once: true });
     }
 
-    // ─── Private helpers ───────────────────────────────────────────
-
-    _make(url) {
-        const a = new Audio(url);
-        a.preload = "none"; // lazy — load only on first play
-        return a;
-    }
-
-    _init() {
-        if (this._initialized) return;
-        this._initialized = true;
-        // Trigger a silent load so sounds are buffered
-        Object.values(this.sounds).forEach(s => {
-            s.volume = 0;
-            s.load();
-        });
+    _getContext() {
+        if (!this._ctx || this._ctx.state === "closed") {
+            this._ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (this._ctx.state === "suspended") {
+            this._ctx.resume();
+        }
+        return this._ctx;
     }
 
     _isOnCooldown(name) {
@@ -70,53 +34,94 @@ class SoundManager {
         return Date.now() - last < cooldown;
     }
 
+    // ─── Sound Generators ─────────────────────────────────────────
+
+    _playTone(freq, duration, vol = 0.1, type = "sine") {
+        try {
+            const ctx = this._getContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            gain.gain.setValueAtTime(vol * this.volume * 6, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + duration);
+        } catch (e) {
+            // Silently fail
+        }
+    }
+
+    _generateHover() {
+        this._playTone(1200, 0.06, 0.06, "sine");
+    }
+
+    _generateClick() {
+        this._playTone(800, 0.08, 0.12, "sine");
+        setTimeout(() => this._playTone(1000, 0.05, 0.08, "sine"), 30);
+    }
+
+    _generateTransition() {
+        this._playTone(400, 0.15, 0.08, "sine");
+        setTimeout(() => this._playTone(600, 0.12, 0.06, "sine"), 60);
+        setTimeout(() => this._playTone(800, 0.1, 0.04, "sine"), 120);
+    }
+
+    _generateSuccess() {
+        this._playTone(523, 0.15, 0.1, "sine");
+        setTimeout(() => this._playTone(659, 0.15, 0.1, "sine"), 100);
+        setTimeout(() => this._playTone(784, 0.2, 0.12, "sine"), 200);
+    }
+
+    _generateError() {
+        this._playTone(300, 0.2, 0.1, "sawtooth");
+        setTimeout(() => this._playTone(250, 0.3, 0.08, "sawtooth"), 150);
+    }
+
+    _generateToggle() {
+        this._playTone(600, 0.08, 0.1, "sine");
+        setTimeout(() => this._playTone(900, 0.06, 0.08, "sine"), 50);
+    }
+
     // ─── Public API ────────────────────────────────────────────────
 
-    /** Toggle sound on/off. Returns new state. */
     toggle() {
         this.enabled = !this.enabled;
         localStorage.setItem("sound-enabled", this.enabled);
-        // Play toggle sound using raw Audio so it works even when disabling
-        if (this.sounds.toggle) {
-            const s = this.sounds.toggle.cloneNode();
-            s.volume = this._volumes.toggle;
-            s.play().catch(() => {});
-        }
+        // Always play toggle sound as feedback
+        this._generateToggle();
         return this.enabled;
     }
 
-    /** Set master volume (0–1). */
     setVolume(v) {
         this.volume = Math.min(1, Math.max(0, v));
         localStorage.setItem("sound-volume", this.volume);
     }
 
-    /** Play a named sound. */
     play(soundName) {
         if (!this.enabled) return;
-        if (!this.sounds[soundName]) return;
         if (this._isOnCooldown(soundName)) return;
 
         this._lastPlayed[soundName] = Date.now();
 
-        const s = this.sounds[soundName].cloneNode();
-        // Per-sound volume × master volume
-        s.volume = (this._volumes[soundName] ?? 0.15) * (this.volume / 0.15);
-        s.play().catch(() => {});
-    }
-
-    /** Attach hover & click sounds to a DOM element. */
-    attachTo(el, { hoverSound = "hover", clickSound = "click" } = {}) {
-        if (!el) return;
-        const onHover = () => this.play(hoverSound);
-        const onClick = () => this.play(clickSound);
-        el.addEventListener("mouseenter", onHover);
-        el.addEventListener("click", onClick);
-        // Return cleanup fn
-        return () => {
-            el.removeEventListener("mouseenter", onHover);
-            el.removeEventListener("click", onClick);
+        const generators = {
+            hover: () => this._generateHover(),
+            click: () => this._generateClick(),
+            transition: () => this._generateTransition(),
+            success: () => this._generateSuccess(),
+            error: () => this._generateError(),
+            toggle: () => this._generateToggle(),
+            pop: () => this._playTone(1000, 0.05, 0.1, "sine"),
+            whoosh: () => this._playTone(200, 0.2, 0.06, "sine"),
         };
+
+        const gen = generators[soundName];
+        if (gen) gen();
     }
 
     get isEnabled() {

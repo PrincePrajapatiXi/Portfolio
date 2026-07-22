@@ -1,3 +1,6 @@
+import { motion } from "framer-motion";
+import { Briefcase, GraduationCap, Code2 } from "lucide-react";
+
 const experiences = [
   {
     period: "2026 — Present",
@@ -6,6 +9,7 @@ const experiences = [
     description: "Built complete e-commerce site with user authentication (Clerk), product filtering, cart system, and payment gateway integration. Deployed on Vercel.",
     technologies: ["React", "Node.js", "Tailwind CSS", "Vercel", "Clerk"],
     current: true,
+    icon: Code2,
   },
   {
     period: "2024 — 2026",
@@ -14,6 +18,7 @@ const experiences = [
     description: "Built a drag-and-drop task tracker for the CS class used by students for homework management.",
     technologies: ["JavaScript", "React", "Tailwind CSS"],
     current: false,
+    icon: GraduationCap,
   },
   {
     period: "2024 — Present",
@@ -22,8 +27,30 @@ const experiences = [
     description: "Built 12+ projects from scratch including a Minecraft server store (Army SMP), an e-commerce site (Catchy Store), a Genshin Impact companion app (AkashaLog), and an AI weather app (AETHER). Self-directed learning through building real projects.",
     technologies: ["React", "JavaScript", "Tailwind CSS", "Node.js"],
     current: true,
+    icon: Briefcase,
   }
 ];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
 
 export const Experience = () => {
   return (
@@ -36,30 +63,37 @@ export const Experience = () => {
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mb-8 md:mb-16">
-          <span
-            className="text-secondary-foreground text-sm
-           font-medium tracking-wider uppercase animate-fade-in"
+          <motion.span
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="text-secondary-foreground text-sm font-medium tracking-wider uppercase"
           >
             Career Journey
-          </span>
-          <h2
-            className="text-3xl md:text-5xl font-bold
-           mt-3 md:mt-4 mb-4 md:mb-6 animate-fade-in animation-delay-100
-            text-secondary-foreground"
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl md:text-5xl font-bold mt-3 md:mt-4 mb-4 md:mb-6 text-secondary-foreground"
           >
             Experience that{" "}
             <span className="font-serif italic font-normal text-white">
               {" "}
               shows my journey.
             </span>
-          </h2>
+          </motion.h2>
 
-          <p
-            className="text-sm md:text-base text-muted-foreground
-           animate-fade-in animation-delay-200"
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-sm md:text-base text-muted-foreground"
           >
             A timeline of my coding journey, from writing my very first 'Hello World' to building actual full-stack apps.
-          </p>
+          </motion.p>
         </div>
 
         {/* Timeline */}
@@ -67,12 +101,18 @@ export const Experience = () => {
           <div className="timeline-glow absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent md:-translate-x-1/2 shadow-[0_0_25px_rgba(32,178,166,0.8)]" />
 
           {/* Experience Items */}
-          <div className="space-y-8 md:space-y-12">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="space-y-8 md:space-y-12"
+          >
             {experiences.map((exp, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="relative grid md:grid-cols-2 gap-8 animate-fade-in"
-                style={{ animationDelay: `${(idx + 1) * 150}ms` }}
+                variants={itemVariants}
+                className="relative grid md:grid-cols-2 gap-8"
               >
                 {/* Timeline Dot */}
                 <div className="absolute left-0 md:left-1/2 top-0 w-3 h-3 bg-primary rounded-full -translate-x-1/2 ring-4 ring-background z-10">
@@ -88,13 +128,18 @@ export const Experience = () => {
                     : "md:col-start-2 md:pl-16"
                     }`}
                 >
-                  <div
-                    className={`glass p-4 md:p-6 rounded-xl md:rounded-2xl border border-primary/30 hover:border-primary/50 transition-all duration-500`}
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="glass p-4 md:p-6 rounded-xl md:rounded-2xl border border-primary/30 hover:border-primary/50 transition-all duration-500"
                   >
-                    <span className="text-sm text-primary font-medium">
-                      {exp.period}
-                    </span>
-                    <h3 className="text-base md:text-xl font-semibold mt-2">{exp.role}</h3>
+                    <div className={`flex items-center gap-2 mb-2 ${idx % 2 === 0 ? "md:justify-end" : ""}`}>
+                      <exp.icon className="w-4 h-4 text-primary" />
+                      <span className="text-sm text-primary font-medium">
+                        {exp.period}
+                      </span>
+                    </div>
+                    <h3 className="text-base md:text-xl font-semibold mt-1">{exp.role}</h3>
                     <p className="text-sm md:text-base text-muted-foreground">{exp.company}</p>
                     <p className="text-xs md:text-sm text-muted-foreground mt-3 md:mt-4">
                       {exp.description}
@@ -112,11 +157,11 @@ export const Experience = () => {
                         </span>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -2,21 +2,20 @@ import {
     Github,
     Instagram,
     Linkedin,
-    Twitter,
     Mail,
-    Heart,
     ArrowUp,
     MapPin,
-    Phone,
     Code2,
 } from "lucide-react";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { FaReact } from "react-icons/fa";
+import { SiTailwindcss, SiVite, SiFramer } from "react-icons/si";
 
 const navLinks = [
     { label: "Home", href: "#" },
     { label: "About", href: "#about" },
     { label: "Projects", href: "#projects" },
     { label: "Experience", href: "#experience" },
-    { label: "Testimonials", href: "#testimonials" },
     { label: "Contact", href: "#contact" },
 ];
 
@@ -33,13 +32,8 @@ const socialLinks = [
     },
     {
         icon: Linkedin,
-        href: "#",
+        href: "https://linkedin.com/in/princeprajapati",
         label: "LinkedIn",
-    },
-    {
-        icon: Twitter,
-        href: "#",
-        label: "Twitter",
     },
 ];
 
@@ -50,15 +44,17 @@ const contactDetails = [
         href: "mailto:princeprajapti2589@gmail.com",
     },
     {
-        icon: Phone,
-        value: "+91 1234567890",
-        href: "tel:+911234567890",
-    },
-    {
         icon: MapPin,
         value: "Orai, Uttar Pradesh",
         href: "https://www.google.com/maps/place/Orai,+Uttar+Pradesh+285001/",
     },
+];
+
+const techStack = [
+    { icon: FaReact, name: "React", color: "text-[#61DAFB]" },
+    { icon: SiTailwindcss, name: "Tailwind", color: "text-[#06B6D4]" },
+    { icon: SiVite, name: "Vite", color: "text-[#646CFF]" },
+    { icon: SiFramer, name: "Framer", color: "text-[#0055FF]" },
 ];
 
 export const Footer = () => {
@@ -79,6 +75,28 @@ export const Footer = () => {
 
             {/* Main Footer Content */}
             <div className="container mx-auto px-4 md:px-6 relative z-10">
+                {/* Stats Bar */}
+                <div className="py-6 md:py-10 grid grid-cols-3 gap-4 md:gap-8 border-b border-white/5">
+                    <div className="text-center">
+                        <div className="text-2xl md:text-4xl font-bold text-primary">
+                            <AnimatedCounter target={12} suffix="+" duration={1.5} />
+                        </div>
+                        <p className="text-xs md:text-sm text-muted-foreground mt-1">Projects Built</p>
+                    </div>
+                    <div className="text-center">
+                        <div className="text-2xl md:text-4xl font-bold text-primary">
+                            <AnimatedCounter target={2} suffix="+" duration={1.5} />
+                        </div>
+                        <p className="text-xs md:text-sm text-muted-foreground mt-1">Years Coding</p>
+                    </div>
+                    <div className="text-center">
+                        <div className="text-2xl md:text-4xl font-bold text-primary">
+                            <AnimatedCounter target={5} suffix="+" duration={1.5} />
+                        </div>
+                        <p className="text-xs md:text-sm text-muted-foreground mt-1">Technologies</p>
+                    </div>
+                </div>
+
                 {/* Top Section */}
                 <div className="py-8 md:py-16 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 lg:gap-8">
                     {/* Brand Column */}
@@ -93,7 +111,7 @@ export const Footer = () => {
                             </span>
                         </a>
                         <p className="text-muted-foreground text-xs md:text-sm leading-relaxed">
-                            A passionate web developer crafting digital experiences
+                            A passionate full-stack web developer crafting digital experiences
                             with modern technologies.
                         </p>
                         {/* Social Icons */}
@@ -165,7 +183,7 @@ export const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Newsletter / CTA */}
+                    {/* Let's Connect */}
                     <div className="hidden md:block space-y-6">
                         <h4 className="text-sm font-semibold uppercase tracking-wider text-primary">
                             Let's Connect
@@ -192,10 +210,21 @@ export const Footer = () => {
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
 
                 {/* Bottom Bar */}
-                <div className="py-6 md:py-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <p className="text-muted-foreground text-sm text-center sm:text-left">
-                        © {new Date().getFullYear()} Prince. Turning ideas into reality, one line of code at a time.
-                    </p>
+                <div className="py-6 md:py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                        <p className="text-muted-foreground text-sm text-center sm:text-left">
+                            © {new Date().getFullYear()} Prince. Built with
+                        </p>
+                        {/* Made with tech icons */}
+                        <div className="flex items-center gap-2">
+                            {techStack.map((tech, idx) => (
+                                <div key={idx} className="flex items-center gap-1 text-xs text-muted-foreground" title={tech.name}>
+                                    <tech.icon className={`w-3.5 h-3.5 ${tech.color}`} />
+                                </div>
+                            ))}
+                            <span className="text-muted-foreground text-xs ml-1">& ❤️</span>
+                        </div>
+                    </div>
 
                     {/* Back to Top */}
                     <button
@@ -203,6 +232,7 @@ export const Footer = () => {
                         className="group/top flex items-center gap-2 px-4 py-2 rounded-xl
                         glass hover:bg-primary/10 text-muted-foreground hover:text-primary
                         transition-all duration-300"
+                        aria-label="Back to top"
                     >
                         <span className="text-sm">Back to top</span>
                         <ArrowUp className="w-4 h-4 group-hover/top:-translate-y-1 transition-transform duration-300" />

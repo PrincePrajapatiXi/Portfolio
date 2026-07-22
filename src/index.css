@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* ─── Dark Theme (Default) ─── */
 @theme {
   --color-background: #0f1418;
   --color-foreground: #f0f2f5;
@@ -23,6 +24,28 @@
   --color-surface: #1a2329;
 }
 
+/* ─── Light Theme ─── */
+[data-theme="light"] {
+  --color-background: #f8fafb;
+  --color-foreground: #1a1a2e;
+
+  --color-card: #ffffff;
+
+  --color-primary: #0d9488;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #e8f4f3;
+  --color-secondary-foreground: #0d9488;
+
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+
+  --color-border: #e2e8f0;
+
+  --color-highlight: #f59e0b;
+  --color-surface: #f1f5f9;
+}
+
 @layer base {
 
   html {
@@ -37,6 +60,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: "Inter", sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   .font-serif {
@@ -77,6 +101,25 @@
   .glow-text {
     text-shadow: 0 0 30px color-mix(in srgb, var(--color-primary) 50%, transparent);
   }
+}
+
+/* Light theme glass overrides */
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .glass-strong {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .text-glow,
+[data-theme="light"] .text-glow-strong,
+[data-theme="light"] .glow-text {
+  text-shadow: none;
 }
 
 @layer utilities {
