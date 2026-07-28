@@ -5,7 +5,7 @@ import { Footer } from "@/layout/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
 import { NoiseOverlay } from "./components/NoiseOverlay";
-import { ClickExplosion } from "./components/ClickExplosion";
+
 import { Preloader } from "./components/Preloader";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { ErrorBoundary } from "./components/ErrorBoundary";
@@ -24,7 +24,7 @@ function App() {
           
           <div className={`min-h-screen overflow-x-hidden selection:bg-primary/30 selection:text-white ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
             <NoiseOverlay />
-            <ClickExplosion />
+
             <ScrollProgress />
             <CustomCursor />
             
